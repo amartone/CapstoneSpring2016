@@ -6,12 +6,15 @@ void setup() {
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
+  pinMode(7, OUTPUT); //solenoid valve
   digitalWrite(7,HIGH);//close valve
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  delay(10);
   sensorValue = analogRead(sensorPin);
   Serial.println(sensorValue);
-
+  
 }
