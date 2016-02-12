@@ -9,7 +9,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(solValve, OUTPUT); //solenoid valve
   pinMode(motorPin, OUTPUT); //pump
-  
+
 }
 
 void loop() {
@@ -17,53 +17,51 @@ void loop() {
 
  if (END==0){
   delay(2000);
+  //Open the solenoid valve
   analogWrite(solValve, 674); //674 == 3.3V
 
   // Start pump
-  int speed = 255;
+  int speed = 255; // is this the max speed of the pump?
   analogWrite(motorPin, speed);
 
-  //Read Pressure b/f loop
+  //Read Pressure
   int pressure = analogRead(transducer);
-
+  //Continously read the pressure until we hit 634.
   while(pressure < 634){
   pressure = analogRead(transducer);
   Serial.println(pressure);
   delay(55);
- 
   }
 
-  //Shutoff Motor
+  //Shutoff the motor
   speed = 0;
   analogWrite(motorPin, speed);
   delay(5000);
 
-  //Dump valve vode 
 
   int x[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   int time[] = {300, 300, 300, 300, 300, 300, 300, 300, 400, 400, 400, 400, 400, 400, 400};
   int y[]={0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   int p1;
   int p2;
-  int j;
   int diastole = 1024;
   int systole = 0;
-
   int pressureReadings[100];
 
-  for (j=0; j<15; j++){
-    analogWrite(solValve, 0);
+  //Turn the valve on and off overtime
+  for (int j=0; j<15; j++){
+    analogWrite(solValve, 0); //shut the valve off
     delay(100);
-    analogWrite(solValve, 674);
+    analogWrite(solValve, 674); //turn the valve on
     delay(250);
-//    pressure = analogRead(transducer);
-    //x[j] = pressure;
+    //Read pressure values
     for(int i=0; i<100; i++){
     pressureReadings[i] = analogRead(transducer);
     delay(10);
     Serial.println(pressureReadings[i]);
-    
 
+    //Check for heartbeats
+    //If the previous values are greater than current values
     if ((pressureReadings[i]-3) > pressureReadings[i-1]){
       Serial.println("Hearbeat detected");
       Serial.println(pressureReadings[i]-3);
@@ -78,7 +76,7 @@ void loop() {
          Serial.println(diastole);
       }
     }
-    
+
     }
    // delay(200);
     //y[j] = max(p1, p2) - pressure;
@@ -89,41 +87,41 @@ void loop() {
     Serial.println(systole);
   }
 
-  int maxm = 0;
-  int i;
-  
-  for(i=5; i<15; i++){
-    if(y[i]>maxm){
-      maxm = y[i];
-    }
-  }
+//   int maxm = 0;
+//   int i;
+//
+//   for(i=5; i<15; i++){
+//     if(y[i]>maxm){
+//       maxm = y[i];
+//     }
+//   }
+//
+//   int index[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+//   int k;
+//   int l=0;
+//
+//   for (k=5; k<15; k++){
+//     if(y[k]==maxm){
+//       index[k-5] = k;
+//       l++;
+//     }
+//
+//   }
+//
+// int total = 0;
+// int a;
+// for(a=0; a<1; a++){
+//   total = x[index[a]] + total;
+//
+// }
+//
+// int MAP = ((total / l)-550)*200/102;
+// Serial.println("Mean Arterial pressure");
+// Serial.print (MAP);
+// Serial.print ("mmHg");
 
-  int index[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  int k;
-  int l=0;
-  
-  for (k=5; k<15; k++){
-    if(y[k]==maxm){
-      index[k-5] = k;
-      l++;
-    }
-    
-  }
-
-int total = 0;
-int a;
-for(a=0; a<1; a++){
-  total = x[index[a]] + total;
-
-}
-
-int MAP = ((total / l)-550)*200/102;
-Serial.println("Mean Arterial pressure");
-Serial.print (MAP);
-Serial.print ("mmHg");
-
-analogWrite(solValve, 0); 
+analogWrite(solValve, 0);
 END++;
-  
+
  }
 }
