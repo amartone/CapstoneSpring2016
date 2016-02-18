@@ -1,14 +1,23 @@
 
+#include <AFMotor.h>
+
+AF_DCMotor motor(1);
+
 const int motorPin = 5;
 const int solValve = 7;
 const int transducer = A0;
 
 int END = 0; //counter to run program once and end
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(solValve, OUTPUT); //solenoid valve
-  pinMode(motorPin, OUTPUT); //pump
+//  pinMode(motorPin, OUTPUT); //pump
+
+ // turn on motor
+  motor.setSpeed(200);
+  motor.run(RELEASE);
 
 }
 
@@ -20,23 +29,28 @@ void loop() {
   //Open the solenoid valve
   analogWrite(solValve, 674); //674 == 3.3V
 
-  // Start pump
+  // Start pump, set speed to 255
   int speed = 255; // is this the max speed of the pump?
-  analogWrite(motorPin, speed);
+//  analogWrite(motorPin, speed);
+    
 
   //Read Pressure
   int pressure = analogRead(transducer);
   //Continously read the pressure until we hit 634.
-  while(pressure < 634){
+//  motor.run(FORWARD);
+  while(pressure < 634){  
   pressure = analogRead(transducer);
   Serial.println(pressure);
   delay(55);
   }
-
+  
+ 
   //Shutoff the motor
   speed = 0;
-  analogWrite(motorPin, speed);
+//  analogWrite(motorPin, speed);
+  motor.setSpeed(speed);
   delay(5000);
+  
 
 
   int x[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -121,6 +135,7 @@ void loop() {
 // Serial.print ("mmHg");
 
 analogWrite(solValve, 0);
+motor.run(RELEASE);
 END++;
 
  }
