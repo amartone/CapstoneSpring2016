@@ -1,4 +1,4 @@
-int sensorPin = A0;
+int sensorPin = A3;
 int sensorValue = 0;
 void setup() {
   // put your setup code here, to run once:
