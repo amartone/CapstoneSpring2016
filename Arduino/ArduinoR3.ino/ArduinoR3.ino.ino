@@ -21,9 +21,12 @@ void setup() {
 
   digitalWrite(12, HIGH); //Establishes forward direction of Channel A
   digitalWrite(9, LOW);   //Disengage the Brake for Channel A
+  
+  //Open solenoid valve
+  analogWrite(solValve, 674); //674 == 3.3V
+  
 
 }
-
 
 void readPressure(int delayVal){
   int pressureReadings[100];
@@ -33,6 +36,23 @@ void readPressure(int delayVal){
       Serial.println(pressureReadings[i]);
       }
 }
+
+//Figure out ratio 
+//450 = 160
+//500 = 180
+//550 = 200
+//575 = 210
+
+//Inflate to 150mmHg
+//Check for pulse
+//if pulse doesn't exist
+    //Inflate to 180
+    //check for pulse
+    //if pulse doesnt exist
+      //inflate to 210
+      //check for pulse
+      //if no pulse exists
+        //throw error message, check pads, etc.
 
 void loop(){
 
@@ -51,10 +71,8 @@ if (END==0){
   
 //  delay(3000);
 //  Serial.println("Engaging motor break");
-
-
-
-  while(pressure < 634){  
+        
+  while(pressure < 575){  
   pressure = analogRead(transducer);
   Serial.println(pressure);
   delay(55);
@@ -70,7 +88,9 @@ if (END==0){
 
 //Turn the valve on and off overtime
   for (int j=0; j<15; j++){
-    analogWrite(solValve, 0); //shut the valve off
+     analogWrite(solValve, 0); //shut the valve off
+     Serial.println("Valve shut off");
+
     readPressure(delayVal);
     analogWrite(solValve, 674); //turn the valve on
     readPressure(delayVal);
