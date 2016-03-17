@@ -1,0 +1,13 @@
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armproc.dll" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armjlink2.dll" 
+
+"C:\Analog Devices\ADuCM350BBCZ\Eval-ADUCM350EBZ\examples\test_2wire\iar\Debug\Exe\ImpedanceMeasurement_2Wire.out" 
+
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armbat.dll" 
+
+--flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\config\flashloader\AnalogDevices\FlashADUCM350BBCZ.board" 
+
+
+
+
