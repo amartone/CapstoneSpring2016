@@ -94,6 +94,8 @@ if (END==0){
   bool pulsefound = false;
   bool pulselost = false;
   bool pulsehere = false;
+  int count = 0;
+  int drops = 4;
 
 while(pressure>40 && !pulselost){
        analogWrite(solValve, 0); //Opens the valve 
@@ -109,8 +111,9 @@ while(pressure>40 && !pulselost){
          delay(delayVal);
          
          //check for a pulse here (pulsehere = bool function -> check evalboard val)
-         
-         //if pulsefound && !pulsehere, pulselost = true; open valve
+
+         //if puslefound, count += 1;
+         //if pulsefound && !pulsehere && count > drops, pulselost = true; open valve
          //else if pulsehere && !puslefound, set pulsefound = true;
          
          pressure = analogRead(transducer);
