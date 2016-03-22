@@ -56,6 +56,8 @@ void readPressure(int delayVal){
 
 void loop(){
 
+
+
 if (END==0){
   delay(2000);
   analogWrite(solValve, 674); //674 == 3.3V
@@ -78,22 +80,55 @@ if (END==0){
   delay(55);
   }
   
- 
+
   digitalWrite(9, HIGH); //Eengage the Brake for Channel A
   
   int diastole = 1024;
   int systole = 0;
   int pressureReadings[100];
-  int delayVal=10;
+  int delayVal=500;
+
+  pressure = analogRead(transducer);
+  int dropVal = 50;
+  int i = pressure - dropVal;
+  bool pulsefound = false;
+  bool pulselost = false;
+  bool pulsehere = false;
+
+while(pressure>40 && !pulselost){
+       analogWrite(solValve, 0); //Opens the valve 
+       pressure = analogRead(transducer);
+       Serial.print("pressure is:");
+       Serial.println(pressure);
+       Serial.print("i is:");
+       Serial.println(i);
+       
+//       delay(500);
+      if(pressure<=i){
+         analogWrite(solValve, 674); //shuts the valve 
+         delay(delayVal);
+         
+         //check for a pulse here (pulsehere = bool function -> check evalboard val)
+         
+         //if pulsefound && !pulsehere, pulselost = true; open valve
+         //else if pulsehere && !puslefound, set pulsefound = true;
+         
+         pressure = analogRead(transducer);
+         i = pressure - dropVal;
+      } 
+}
+
+//if pulselost = false, error occurred
+
 
 //Turn the valve on and off overtime
-  for (int j=0; j<15; j++){
-     analogWrite(solValve, 0); //shut the valve off
-     Serial.println("Valve shut off");
+//  for (int j=0; j<15; j++){
+//     analogWrite(solValve, 0); //shut the valve off
+//     Serial.println("Valve shut off");
 
-    readPressure(delayVal);
-    analogWrite(solValve, 674); //turn the valve on
-    readPressure(delayVal);
+//    readPressure(delayVal);
+//    analogWrite(solValve, 674); //turn the valve on
+//    readPressure(delayVal);
     //Read pressure values
 //    for(int i=0; i<100; i++){
 //    pressureReadings[i] = analogRead(transducer);
@@ -128,7 +163,7 @@ if (END==0){
 //  }
 
   analogWrite(solValve, 0);
-  END++;
   }
+  END++;
 }
-}
+
