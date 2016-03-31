@@ -2109,6 +2109,9 @@
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\gpio.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2c.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\uart.c</name>
     </file>
     <file>
