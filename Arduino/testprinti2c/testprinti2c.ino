@@ -1,8 +1,5 @@
 #include <Wire.h>
 
-int sensorPin = A3;
-int sensorValue = 0;
-
 void setup() {
   Wire.begin(0x77);
   Serial.begin(9600);
