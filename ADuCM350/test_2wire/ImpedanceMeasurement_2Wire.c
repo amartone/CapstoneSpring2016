@@ -21,6 +21,7 @@ License Agreement.
 
 int main(void) {
   ADI_AFE_DEV_HANDLE hDevice;
+  ADI_I2C_DEV_HANDLE i2cDevice;
   int16_t dft_results[DFT_RESULTS_COUNT];
   q15_t dft_results_q15[DFT_RESULTS_COUNT];
   q31_t dft_results_q31[DFT_RESULTS_COUNT];
@@ -61,6 +62,9 @@ int main(void) {
   if (ADI_RTC_SUCCESS != adi_RTC_GetCount(hRTC, &rtcCount))
     FAIL("adi_RTC_GetCount failed");
 
+  /* Initialize I2C */
+  i2c_Init(&i2cDevice);
+  
   /* Test initialization */
   test_Init();
 
@@ -139,7 +143,25 @@ int main(void) {
   printf("rcal (magnitude, phase) = (%d, %d)\r\n", magnitudecal, phasecal);
 
   ADI_AFE_TypeDef *pAFE = pADI_AFE;
+  ADI_I2C_RESULT_TYPE i2cResult;
+//  unsigned char transmit = (unsigned char) 1;
   while (true /*!done*/) {
+//    printf("transmitting message...\n");
+
+    // Send test bits.
+//    for (int i = 0; i < I2C_BUFFER_SIZE; ++i) {
+//      i2c_tx[i] = transmit += 2;
+//    }
+//    i2cResult = adi_I2C_MasterTransmit(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+//                                       ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_tx,
+//                                       I2C_BUFFER_SIZE, false);
+ 
+//    if (i2cResult != ADI_I2C_SUCCESS) {
+//      FAIL("adi_I2C_MasterTransmit");
+//    }
+   
+    printf("Done!\n");
+       // printf("%8X : %8X\r\n", &(pADI_AFE->AFE_DFT_RESULT_REAL),
     // delay(2000000);
     // printf("%8X : %8X\r\n", &(pADI_AFE->AFE_DFT_RESULT_REAL),
     // (pADI_AFE->AFE_DFT_RESULT_REAL));
@@ -516,6 +538,36 @@ ADI_UART_RESULT_TYPE uart_UnInit(void) {
 
   return result;
 }
+
+void initI2C(ADI_I2C_DEV_HANDLE *i2cDevice) {
+  // init transmit data
+  for (int i = 0; i < I2C_BUFFER_SIZE; i++) {
+    i2c_tx[i] = 0;
+  }
+
+  /* Take HCLK/PCLK down to 1MHz for better power utilization */
+  /* Need to set PCLK frequency first, because HCLK frequency */
+  /* needs to be greater than or equal to the PCLK frequency  */
+  /* at all times.                                            */
+  // SetSystemClockDivider(ADI_SYS_CLOCK_PCLK, 16);
+  // SetSystemClockDivider(ADI_SYS_CLOCK_CORE, 16);
+
+  /* Initialize I2C driver */
+  if (ADI_I2C_SUCCESS != adi_I2C_MasterInit(ADI_I2C_DEVID_0, i2cDevice)) {
+    FAIL("adi_I2C_MasterInit");
+  }
+
+  /* select serial bit rate (~100 kHz max)*/
+  if (ADI_I2C_SUCCESS != adi_I2C_SetMasterClock(*i2cDevice, I2C_MASTER_CLOCK)) {
+    FAIL("adi_I2C_SetMasterClock");
+  }
+
+  /* disable blocking mode... i.e., poll for completion */
+  //if (ADI_I2C_SUCCESS != adi_I2C_SetBlockingMode(*i2cDevice, false)) {
+  //  FAIL("adi_I2C_SetBlockingMode");
+  //}
+}
+
 
 void rtc_Init(void) {
   /* callbacks */

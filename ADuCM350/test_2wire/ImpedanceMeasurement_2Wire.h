@@ -20,6 +20,7 @@ License Agreement.
 
 #include "afe.h"
 #include "afe_lib.h"
+#include "i2c.h"
 #include "uart.h"
 
 #include "gpio.h"
@@ -57,6 +58,23 @@ License Agreement.
 /* The number of results expected from the DFT, in this case 8 for 4 complex
  * results */
 #define DFT_RESULTS_COUNT (8)
+
+/*  Anything faster than ~30 kHz is physically non-realizable with 1 MHz pclk,
+    which is desirable for low-power concerns.  With a 16 MHz pclk, faster I2C
+    serial clocks are possible, at the cost of higher power consumption.
+*/
+#define I2C_MASTER_CLOCK 100000
+
+/* Maximum I2C TX/RX buffer size. */
+#define I2C_BUFFER_SIZE 2
+
+/* Slave address of the Arduino pump module. */
+#define I2C_PUMP_SLAVE_ADDRESS 0x77
+
+/* I2C buffers. */
+uint8_t i2c_tx[I2C_BUFFER_SIZE];
+uint8_t i2c_rx[I2C_BUFFER_SIZE];
+
 
 /* Fractional LSB size for the fixed32_t type defined below, used for printing
  * only. */
@@ -122,7 +140,9 @@ void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase);
 void test_print(char *pBuffer);
 ADI_UART_RESULT_TYPE uart_Init(void);
 ADI_UART_RESULT_TYPE uart_UnInit(void);
+void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice);
 extern int32_t adi_initpinmux(void);
+
 
 /* Sequence for AC measurement, performs 4 DFTs:        */
 /*     RCAL, AFE3-AFE4, AFE4-AFE5, AFE3-AFE5            */
