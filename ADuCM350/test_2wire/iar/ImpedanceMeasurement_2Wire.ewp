@@ -1950,10 +1950,25 @@
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2c.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rtc.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\uart.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\wdt.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Main Sources</name>
+    <file>
+      <name>$PROJ_DIR$\..\ImpedanceMeasurement_2Wire.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ImpedanceMeasurement_2Wire.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\PinMux.c</name>
     </file>
   </group>
   <group>
@@ -1966,15 +1981,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
-    </file>
-  </group>
-  <group>
-    <name>Test Sources</name>
-    <file>
-      <name>$PROJ_DIR$\..\ImpedanceMeasurement_2Wire.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\PinMux.c</name>
     </file>
   </group>
   <file>
