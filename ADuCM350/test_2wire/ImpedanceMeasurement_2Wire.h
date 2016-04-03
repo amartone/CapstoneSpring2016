@@ -66,15 +66,20 @@ License Agreement.
 #define I2C_MASTER_CLOCK 100000
 
 /* Maximum I2C TX/RX buffer size. */
-#define I2C_BUFFER_SIZE 2
+#define I2C_BUFFER_SIZE 5
 
 /* Slave address of the Arduino pump module. */
 #define I2C_PUMP_SLAVE_ADDRESS 0x77
 
+/* Command send to the Arduino to ask for pressure measurement. */
+#define READ_PRESSURE_COMMAND (char) 0x42
+
+/* First byte from the Arduino indicating that pressure is available. */
+#define ARDUINO_PRESSURE_AVAILABLE (char) 0x24
+
 /* I2C buffers. */
 uint8_t i2c_tx[I2C_BUFFER_SIZE];
 uint8_t i2c_rx[I2C_BUFFER_SIZE];
-
 
 /* Fractional LSB size for the fixed32_t type defined below, used for printing
  * only. */
@@ -181,3 +186,8 @@ uint32_t
 uint32_t nummeasurements;
 uint8_t done;
 
+void delay(uint32_t count) {
+  while (count > 0) {
+    count--;
+  }
+}

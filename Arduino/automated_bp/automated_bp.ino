@@ -1,5 +1,5 @@
-#include <AFMotor.h>
 #include <Wire.h>
+#include <AFMotor.h>
 
 AF_DCMotor motor(1);
 
@@ -9,11 +9,39 @@ const int kTransducer = A0;
 const int kMaxPressure = 634;
 const int kMotorSpeed = 200;
 const int kI2cSlaveAddress = 0x77;
+const int kReadPressureCommand = 0x42;
+const char kResponsePressureNotYetAvailable[] = {(char) 0x23, (char) 0x23, (char) 0x23, (char) 0x23, (char) 0x23};
+const char kResponsePressureAvailable = (char) 0x24;
 
-bool has_finished = false;
+bool measure_requested = false;
+unsigned int last_diastole, last_systole;
+bool pressure_measured = false;
 
-void TransmitPressureViaI2C(int diastole, int systole) {
-  // TODO
+// TODO: these may be ISRs. Consider moving blocking work to loop() function.
+
+void CommandReceived(int numBytes) {
+  Serial.println(F("Received command from ADUCM350!"));
+  while (Wire.available()) {
+    unsigned int num = (unsigned int) Wire.read();
+    if (num == kReadPressureCommand) {
+      Serial.println(F("ADUCM350 requested cuff pressure."));
+      measure_requested = true;
+    }
+  }
+}
+
+void RequestReceived() {
+  if (!pressure_measured) {
+    Wire.write(kResponsePressureNotYetAvailable, 5);
+  } else {
+    char to_write[5];
+    to_write[0] = kResponsePressureAvailable;
+    to_write[1] = (char) last_diastole;
+    to_write[2] = (char) (last_diastole >> 8);
+    to_write[3] = (char) last_systole;
+    to_write[4] = (char) (last_systole >> 8);
+    Wire.write(to_write, 5);
+  }
 }
 
 void setup() {
@@ -22,19 +50,32 @@ void setup() {
 
   // Set up the I2C connection.
   Wire.begin(kI2cSlaveAddress);
-  Wire.onReceive(printReceived);
+  Wire.onReceive(CommandReceived);
+  Wire.onRequest(RequestReceived);
 
   // Configure the solenoid valve.
-  pinMode(solValve, OUTPUT);
+  pinMode(kSolValve, OUTPUT);
 
   // Configure the motor.
-  motor.setSpeed(kMotorSpeeed);
+  motor.setSpeed(kMotorSpeed);
+
+  Serial.println(F("Waiting for signal from master to read pressure..."));
 }
 
 void loop() {
-  if (has_finished) {
+  if (!measure_requested) {
     return;
   }
+
+  Serial.println(F("Starting pressure measurement..."));
+
+  // TODO: remove me for actual motor operation!
+  delay(5000);
+  last_diastole = 123;
+  last_systole = 456;
+  pressure_measured = true;
+  measure_requested = false;
+  return;
 
   // Start the motor and wait a couple seconds for the pump to inflate.
   motor.run(RELEASE);
@@ -44,15 +85,16 @@ void loop() {
   analogWrite(kSolValve, 674);  // 674 == 3.3V
 
   // Continously read the pressure until we hit the pressure shut-off value.
-  int pressure = analogRead(transducer);
+  Serial.println(F("Inflating..."));
+  int pressure = analogRead(kTransducer);
   while (pressure < kMaxPressure) {
-    pressure = analogRead(transducer);
+    pressure = analogRead(kTransducer);
     Serial.println(pressure);
     delay(55);
   }
 
   // Shut off the motor and wait a few seconds to restrict blood flow.
-  motor.run(BREAK);
+  motor.run(BRAKE);
   delay(5000);
 
   int x[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -68,16 +110,16 @@ void loop() {
   // Turn the valve on and off over time.
   for (int j = 0; j < 15; j++) {
     // Shut the valve off.
-    analogWrite(solValve, 0);
+    analogWrite(kSolValve, 0);
     delay(100);
-    analogWrite(solValve, 674);
+    analogWrite(kSolValve, 674);
 
     // Turn the valve on.
     delay(250);
 
     // Read pressure values.
     for (int i = 0; i < 100; i++) {
-      pressureReadings[i] = analogRead(transducer);
+      pressureReadings[i] = analogRead(kTransducer);
       delay(10);
       Serial.println(pressureReadings[i]);
 
@@ -100,18 +142,21 @@ void loop() {
     }
     // delay(200);
     // y[j] = max(p1, p2) - pressure;
-
-    Serial.println("Final diastolic pressure:");
-    Serial.println(diastole);
-    Serial.println("Final systolic pressure:");
-    Serial.println(systole);
-
-    TransmitPressureViaI2C(diastole, systole);
   }
 
+  Serial.println("Final diastolic pressure:");
+  Serial.println(diastole);
+  Serial.println("Final systolic pressure:");
+  Serial.println(systole);
+
   // Release the solenoid valve.
-  analogWrite(solValve, 0);
-  has_finished = true;
+  analogWrite(kSolValve, 0);
+
+  // Update the pressure values to send to the ADUCM350.
+  last_diastole = diastole;
+  last_systole = systole;
+  pressure_measured = true;
+  measure_requested = false;
 }
 
 // // Mean Arterial pressure code?

@@ -32,6 +32,7 @@ int main(void) {
   char msg[MSG_MAXLEN];
   int8_t i;
   done = 0;
+  uint16_t diastole, systole;
 
   nummeasurements = 0;
 
@@ -131,6 +132,45 @@ int main(void) {
       adi_RTC_EnableInterrupts(hRTC, ADI_RTC_INT_ENA_ALARM, true))
     FAIL("adi_RTC_EnableInterrupts failed");
 
+  // Get initial systolic and diastolic pressure from the Arduino pump and
+  // cuff.
+  ADI_I2C_RESULT_TYPE i2cResult;
+  
+  // Send the READ_PRESSURE_COMMAND to the Arduino.
+  i2c_tx[0] = READ_PRESSURE_COMMAND;
+  printf("Sending command %ud\n", READ_PRESSURE_COMMAND);
+  i2cResult = adi_I2C_MasterTransmit(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+                                     ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_tx,
+                                     1, false);
+  if (i2cResult != ADI_I2C_SUCCESS) {
+    FAIL("adi_I2C_MasterTransmit: send pressure command to Arduino");
+  }
+  printf("Command sent!\n");
+  
+  // Wait for the Arduino to finish.
+  while (true) {
+    delay(5000000);
+    printf("Checking if pressure is available...\n");
+    i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_rx,
+                                      5, false);
+    if (i2cResult != ADI_I2C_SUCCESS) {
+      FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
+    }
+    
+    if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
+      diastole = i2c_rx[1] | (i2c_rx[2] << 8);
+      systole = i2c_rx[3] | (i2c_rx[4] << 8);
+      printf("Arduino sent diastolic pressure %d and systolic pressure %d\n",
+          diastole, systole);
+      break;
+    }
+  }
+  
+  // TODO: remove!
+  printf("Running the rest of the impedance code...\n");
+  return 0;
+  
   q31_t magnitudecal;
   q15_t phasecal;
 
@@ -143,7 +183,6 @@ int main(void) {
   printf("rcal (magnitude, phase) = (%d, %d)\r\n", magnitudecal, phasecal);
 
   ADI_AFE_TypeDef *pAFE = pADI_AFE;
-  ADI_I2C_RESULT_TYPE i2cResult;
 //  unsigned char transmit = (unsigned char) 1;
   while (true /*!done*/) {
 //    printf("transmitting message...\n");
@@ -152,7 +191,7 @@ int main(void) {
 //    for (int i = 0; i < I2C_BUFFER_SIZE; ++i) {
 //      i2c_tx[i] = transmit += 2;
 //    }
-//    i2cResult = adi_I2C_MasterTransmit(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+//    i2cResult = (i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
 //                                       ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_tx,
 //                                       I2C_BUFFER_SIZE, false);
  
@@ -539,7 +578,7 @@ ADI_UART_RESULT_TYPE uart_UnInit(void) {
   return result;
 }
 
-void initI2C(ADI_I2C_DEV_HANDLE *i2cDevice) {
+void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice) {
   // init transmit data
   for (int i = 0; i < I2C_BUFFER_SIZE; i++) {
     i2c_tx[i] = 0;
