@@ -1,0 +1,14 @@
+label.col-sm-2.control-label{
+    text-align: left;
+}
+
+a.btn.btn-default.btn-block{
+    border-color:rgba(0, 0, 0, 0.75);
+    border-width:2px;
+}
+p.users{
+    font-size:20px
+}
+
+
+
