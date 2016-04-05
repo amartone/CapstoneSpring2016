@@ -1,24 +1,46 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController as model">
+<nav class="navbar navbar-default" ng-controller="HeaderController as model">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar bar1"></span>
+                <span class="icon-bar bar2"></span>
+                <span class="icon-bar bar3"></span>
             </button>
-            <a class="navbar-brand" href="#">Capstone App Prototype</a>
+            <a class="navbar-brand" href="#">
+
+                <i class="ti-pulse"></i>
+
+            </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="{'active': $location.url()=='/register'}" ng-hide="currentUser || $location.url()=='/register'"><a href="#/register">Register</a></li>
-                <li ng-class="{'active': $location.url()=='/login'}" ng-hide="currentUser || $location.url()=='/login'"><a href="#/login">Login</a></li>
-                <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser"><a href="#/profile">{{currentUser.firstName}}</a></li>
-                <li ng-click="model.logout()" ng-show="currentUser"><a href="#/logout">Logout</a></li>
+                <li ng-class="{'active': $location.url()=='/register'}" ng-hide="currentUser || $location.url()=='/register'">
+                    <a href="#/register">
+                    <i class="ti-crown"></i>
+                    <p>Register</p>
+                    </a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/login'}" ng-hide="currentUser || $location.url()=='/login'">
+                    <a href="#/login">
+                    <i class="ti-key"></i>
+                    <p>Login</p>
+                    </a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
+                    <a href="#/profile">
+                    <i class="ti-user"></i>
+                    <p>{{currentUser.firstName}}</p>
+                    </a>
+                </li>
+                <li ng-click="model.logout()" ng-show="currentUser"><a href="#/logout">
+                    <i class="ti-plug"></i>
+                    <p>Logout</p>
+                </a>
+                </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
+
         </div>
     </div>
 </nav>
+

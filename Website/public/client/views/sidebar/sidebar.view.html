@@ -1,10 +1,33 @@
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="sidebar" data-background-color="white" data-active-color="danger">
 
-    <ul class="nav nav-sidebar">
-        <li ng-class="{'active': $location.url()=='/home'}"><a href=#/home>Home <span
-                class="sr-only">(current)</span></a></li>
-        <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser"><a href="#/profile">Profile</a>
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text">
+            Capstone App
+        </a>
+    </div>
+
+    <ul class="nav">
+
+        <li ng-class="{'active': $location.url()=='/home'}">
+            <a href=#/home>
+                <span
+                class="sr-only">(current)
+            </span>
+
+            <i class="ti-panel"></i>
+            <p>Home</p>
+            </a>
         </li>
-    </ul>
 
+        <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
+            <a href="#/profile">
+            <i class="ti-user"></i>
+            <p>Profile</p>
+            </a>
+        </li>
+
+
+    </ul>
+</div>
 </div>

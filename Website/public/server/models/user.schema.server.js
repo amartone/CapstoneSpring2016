@@ -11,7 +11,7 @@ module.exports = function(mongoose) {
         pcp: [String]
         // collection property sets
         // collection name to 'user'
-    }, {collection: 'assignment.user'});
+    }, {collection: 'capstone.user'});
     return UserSchema;
 };
 

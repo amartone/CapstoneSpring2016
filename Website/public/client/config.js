@@ -15,6 +15,10 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/dashboard",{
+                templateUrl: "views/dashboard/dashboard.html",
+
+            })
             .when("/welcome",{
                 templateUrl: "views/home/welcome.view.html",
                 resolve:{
