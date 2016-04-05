@@ -2,7 +2,7 @@
 <html lang="en" ng-app="CapstoneApp">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
@@ -11,7 +11,10 @@
 
     <title>Capstone</title>
 
-    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!--<link href="http://code.jquery-uiry.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">-->
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
@@ -27,18 +30,6 @@
     <!--<script src="js/http_cdnjs.cloudflare.com_ajax_libs_angular.js_1.5.0-rc.2_angular-route.js" ></script>-->
     <script src="app.js"></script>
     <script src="config.js"></script>
-    <!--<script src="services/form.service.client.js"></script>
-    <script src="services/user.service.client.js"></script>
-    <script src="services/field.service.client.js"></script>
-    <script src="views/home/home.controller.js"></script>
-    <script src="views/users/profile.controller.js"></script>
-    <script src="views/users/login.controller.js"></script>
-    <script src="views/users/register.controller.js"></script>
-    <script src="views/admin/admin.controller.js"></script>
-    <script src="views/forms/field.controller.js"></script>
-    <script src="views/forms/forms.controller.js"></script>
-    <script src="views/header/header.controller.js"></script>
-    <script src="views/main/main.controller.js"></script>-->
     <script src="views/main/main.controller.js"></script>
     <script src="views/home/home.controller.js"></script>
     <script src="views/users/profile.controller.js"></script>
@@ -50,8 +41,19 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <!-- Animation library for notifications   -->
+    <link href="css/animate.min.css" rel="stylesheet"/>
+    <!--  Paper Dashboard core CSS    -->
+    <link href="css/paper-dashboard.css" rel="stylesheet"/>
+    <link href="css/themify-icons.css" rel="stylesheet">
+
+
+
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -59,14 +61,14 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<div ng-include src="'views/sidebar/sidebar.view.html'"></div>
-<div ng-include src="'views/header/header.view.html'"></div>
 
 <body ng-controller="MainController">
-<div class="container-fluid">
-    <div class="container">
+<div class="wrapper">
+    <div ng-include src="'views/sidebar/sidebar.view.html'"></div>
+    <div class="main-panel">
+        <div ng-include src="'views/header/header.view.html'"></div>
         <div ng-view></div>
-    </div>
+        </div>
 </div>
 
 <!-- Bootstrap core JavaScript
@@ -75,6 +77,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.0.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="js/bootstrap-notify.js"></script>
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="js/paper-dashboard.js"></script>
 
 
 </body>
