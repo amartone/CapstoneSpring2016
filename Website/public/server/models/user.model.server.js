@@ -51,9 +51,10 @@ module.exports = function (db, mongoose) {
         //    emails: user.emails,
         //    phones: user.phones}
 
+        delete user._id;
         //Note: need to use $set if MongoDB = 2.4.x
 
-        UserModel.findByIdAndUpdate(userId, user, {new:true}, function(err, doc){
+        UserModel.findByIdAndUpdate(userId, {$set:user}, {new:true, upsert:true}, function(err, doc){
             if (err) {
                 // reject promise if error
                 deferred.reject(err);
