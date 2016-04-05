@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" ng-controller="HomeController">
     <div class="container-fluid">
         <div class="row">
     <div class="col-sm-6">
@@ -7,6 +7,25 @@
                 <button class="btn btn-default" type="button">Get new BP</button>
                </span>
             </h3>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-striped">
+                <thead>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Diastolic</th>
+                <th>Systolic</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bp in model.bp | orderBy: '+title' ">
+                    <td>{{bp.title}}</td>
+                    <td>{{bp.date}}</td>
+                    <td>{{bp.diastolic}}</td>
+                    <td>{{bp.systolic}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
         </div>
 
     <div class="col-sm-6">
