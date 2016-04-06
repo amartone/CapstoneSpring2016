@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="bp in model.bp | orderBy: '+title' ">
-                    <td>{{bp.title}}</td>
+                    <td><a href="#/history/{{bp._id}}/">{{bp.title}}</a></td>
                     <td>{{bp.date}}</td>
                     <td>{{bp.diastolic}}</td>
                     <td>{{bp.systolic}}</td>

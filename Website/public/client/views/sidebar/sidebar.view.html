@@ -2,7 +2,7 @@
 
 <div class="sidebar-wrapper">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text">
+        <a href="" class="simple-text">
             Capstone App
         </a>
     </div>
@@ -24,6 +24,12 @@
             <a href="#/profile">
             <i class="ti-user"></i>
             <p>Profile</p>
+            </a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
+            <a href="#/impedance">
+                <i class="ti-pulse"></i>
+                <p>Impedance Results</p>
             </a>
         </li>
 
