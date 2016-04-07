@@ -1,4 +1,4 @@
-
+ 
 import sys, serial, argparse
 import numpy as np
 from time import sleep
@@ -15,7 +15,7 @@ class AnalogPlot:
   # constr
   def __init__(self, strPort, maxLen):
       # open serial port
-      self.ser = serial.Serial(strPort, 9600)
+      self.ser = serial.Serial(strPort, 115200)
 
       self.ax = deque([0.0]*maxLen)
       self.ay = deque([0.0]*maxLen)
@@ -69,36 +69,53 @@ def main():
   # parse args
   args = parser.parse_args()
   
-  #strPort = '/dev/tty.usbserial-A7006Yqh'
+  # strPort = '/dev/tty.usbserial-A7006Yqh'
   strPort = args.port
 
   print('reading from serial port %s...' % strPort)
 
   # plot parameters
-  analogPlot = AnalogPlot(strPort, 100)
+  # analogPlot = AnalogPlot(strPort, 100)
 
   print('plotting data...')
   
-  # ser = serial.Serial(strPort, 115200)
+  ser = serial.Serial(strPort, 115200)
   # while True:
     # print(ser.readline())
   
+  buffer = []
   
-
+  y = np.zeros(10000)
+  for i in range(10000):
+    print("on number " +str(i))
+    serline = ser.readline()
+    print(str(serline))
+    data = [float(val) for val in serline.split()]
+    if(len(data) == 2):
+        y[i] = data[0]
+        buffer.append((data[0], data[1]))
+    
+  print(str(buffer))
+  
+  x = np.arange(0, 10000, 1)
+  plt.plot(x, y)
+  plt.show()
+  # y = np.array(
+  
   # set up animation
-  fig = plt.figure()
-  ax = plt.axes(xlim=(0, 100), ylim=(0, 1000))
-  a0, = ax.plot([], [])
-  a1, = ax.plot([], [])
-  anim = animation.FuncAnimation(fig, analogPlot.update, 
-                                 fargs=(a0, a1), 
-                                 interval=50)
+  # fig = plt.figure()
+  # ax = plt.axes(xlim=(0, 100), ylim=(900, 910))
+  # a0, = ax.plot([], [])
+  # a1, = ax.plot([], [])
+  # anim = animation.FuncAnimation(fig, analogPlot.update, 
+                                 # fargs=(a0, a1), 
+                                 # interval=30)
 
   # show plot
-  plt.show()
+  # plt.show()
   
   # clean up
-  analogPlot.close()
+  # analogPlot.close()
 
   print('exiting.')
   
