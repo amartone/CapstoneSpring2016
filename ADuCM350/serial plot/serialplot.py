@@ -61,6 +61,9 @@ class AnalogPlot:
 
 # main() function
 def main():
+  numvalues = 15000
+
+
   # create parser
   parser = argparse.ArgumentParser(description="serial plotter")
   # add expected arguments
@@ -84,22 +87,41 @@ def main():
     # print(ser.readline())
   
   buffer = []
-  
-  y = np.zeros(10000)
-  for i in range(10000):
+  pres = []
+  mag = []
+  pressure = np.empty([numvalues])
+  magnitude = np.empty([numvalues])
+  for i in range(numvalues):
     print("on number " +str(i))
     serline = ser.readline()
     print(str(serline))
     data = [float(val) for val in serline.split()]
-    if(len(data) == 2):
-        y[i] = data[0]
+    if(len(data) == 3):
+        pres.append(data[0])
+        mag.append(data[1])
+        pressure[i-1] = data[0]
+        magnitude[i-1] = data[1]
         buffer.append((data[0], data[1]))
     
-  print(str(buffer))
+  # print(str(buffer))
   
-  x = np.arange(0, 10000, 1)
-  plt.plot(x, y)
+  x = np.arange(0, numvalues, 1)
+  
+  
+  plt.subplot(2, 1, 1)
+  plt.plot(mag)
+  plt.title('Pressure and Impedance over Time')
+  plt.ylabel('Impedance Magnitude')
+  # plt.set_ylim(ymin=800, ymax = 850)
+  plt.autoscale(enable=True, axis = 'both', tight = None)
+  plt.subplot(2, 1, 2)
+  plt.plot(pres)
+  plt.ylabel('Pressure')
+  plt.xlabel('sample number')
+  plt.autoscale(enable=True, axis = 'both', tight = None)
   plt.show()
+
+  
   # y = np.array(
   
   # set up animation
