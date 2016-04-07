@@ -32,7 +32,7 @@ int main(void) {
   char msg[MSG_MAXLEN];
   int8_t i;
   done = 0;
-  uint16_t diastole, systole;
+  uint16_t pressure;
 
   nummeasurements = 0;
 
@@ -128,10 +128,11 @@ int main(void) {
     FAIL("adi_RTC_EnableAlarm failed");
 
   /* enable alarm interrupting */
+  /*
   if (ADI_RTC_SUCCESS !=
       adi_RTC_EnableInterrupts(hRTC, ADI_RTC_INT_ENA_ALARM, true))
     FAIL("adi_RTC_EnableInterrupts failed");
-
+*/
   // Get initial systolic and diastolic pressure from the Arduino pump and
   // cuff.
   ADI_I2C_RESULT_TYPE i2cResult;
@@ -147,30 +148,9 @@ int main(void) {
   }
   printf("Command sent!\n");
   
-  // Wait for the Arduino to finish.
-  while (true) {
-    delay(5000000);
-    printf("Checking if pressure is available...\n");
-    i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
-                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_rx,
-                                      5, false);
-    if (i2cResult != ADI_I2C_SUCCESS) {
-      FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
-    }
-    
-    if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
-      diastole = i2c_rx[1] | (i2c_rx[2] << 8);
-      systole = i2c_rx[3] | (i2c_rx[4] << 8);
-      printf("Arduino sent diastolic pressure %d and systolic pressure %d\n",
-          diastole, systole);
-      break;
-    }
-  }
   
-  // TODO: remove!
-  printf("Running the rest of the impedance code...\n");
-  return 0;
   
+  //initial impedance reading
   q31_t magnitudecal;
   q15_t phasecal;
 
@@ -183,6 +163,66 @@ int main(void) {
   printf("rcal (magnitude, phase) = (%d, %d)\r\n", magnitudecal, phasecal);
 
   ADI_AFE_TypeDef *pAFE = pADI_AFE;
+  
+  
+  
+  
+  while (true) {
+    
+    //delay(50000);
+    
+    
+    /////////////////////////////////////
+    // Get pressure value from Arduino //
+    /////////////////////////////////////
+    i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_rx,
+                                      3, false);
+    if (i2cResult != ADI_I2C_SUCCESS) {
+      FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
+    }
+    
+    if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
+      pressure = i2c_rx[1] | (i2c_rx[2] << 8);
+      //systole = i2c_rx[3] | (i2c_rx[4] << 8);
+      //printf("Arduino sent a pressure reading of %d\r\n", pressure);
+      //break;
+    }
+    
+    
+    dft_results[0] = pADI_AFE->AFE_DFT_RESULT_REAL;
+    dft_results[1] = pADI_AFE->AFE_DFT_RESULT_IMAG;
+
+    // Convert DFT results to 1.15 and 1.31 formats.
+    convert_dft_results(dft_results, dft_results_q15, dft_results_q31);
+
+    // Magnitude calculation
+    // Use CMSIS function
+    arm_cmplx_mag_q31(dft_results_q31, magnitude, DFT_RESULTS_COUNT / 2);
+
+    // Calculate final magnitude values, calibrated with RCAL.
+    fixed32_t magnituderesult;
+    magnituderesult = calculate_magnitude(magnitudecal, magnitude[0]);
+
+    q15_t phaseresult;
+    phaseresult = arctan(dft_results[1], dft_results[0]);
+    fixed32_t phasecalibrated;
+
+    // calibrate with phase from rcal
+    phasecalibrated = calculate_phase(phasecal, phaseresult);
+    // printf("final results (magnitude, phase) : (%6d, %6d)\r\n",
+    // magnitude_result[0], phasecalibrated );
+    print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated);
+    nummeasurements++;
+    
+    
+  }
+  
+  // TODO: remove!
+  printf("Running the rest of the impedance code...\n");
+  return 0;
+  
+  
 //  unsigned char transmit = (unsigned char) 1;
   while (true /*!done*/) {
 //    printf("transmitting message...\n");
@@ -208,34 +248,7 @@ int main(void) {
     // (pADI_AFE->AFE_ADC_RESULT));
     //        printf("DFT results (real, imaginary) : (%6d, %6d)\r\n",
     //        pADI_AFE->AFE_DFT_RESULT_REAL, pADI_AFE->AFE_DFT_RESULT_IMAG );
-    dft_results[0] = pADI_AFE->AFE_DFT_RESULT_REAL;
-    dft_results[1] = pADI_AFE->AFE_DFT_RESULT_IMAG;
-
-    // Convert DFT results to 1.15 and 1.31 formats.
-    convert_dft_results(dft_results, dft_results_q15, dft_results_q31);
-
-    // Magnitude calculation
-    // Use CMSIS function
-    arm_cmplx_mag_q31(dft_results_q31, magnitude, DFT_RESULTS_COUNT / 2);
-
-    // Calculate final magnitude values, calibrated with RCAL.
-    // for (i = 0; i < DFT_RESULTS_COUNT / 2 - 1; i++)
-    //{
-    fixed32_t magnituderesult;
-    magnituderesult = calculate_magnitude(magnitudecal, magnitude[0]);
-    //}
-
-    // phase[0] = arctan(dft_results[1], dft_results[0]);
-    q15_t phaseresult;
-    phaseresult = arctan(dft_results[1], dft_results[0]);
-    fixed32_t phasecalibrated;
-
-    // calibrate with phase from rcal
-    phasecalibrated = calculate_phase(phasecal, phaseresult);
-    // printf("final results (magnitude, phase) : (%6d, %6d)\r\n",
-    // magnitude_result[0], phasecalibrated );
-    print_MagnitudePhase("", magnituderesult, phasecalibrated);
-    nummeasurements++;
+    
   }
 
   /* Restore to using default CRC stored with the sequence */
@@ -504,7 +517,28 @@ void sprintf_fixed32(char *out, fixed32_t in) {
   }
 }
 
-/* Helper function for printing fixed32_t (magnitude & phase) results */
+/* Helper function for printing fixed32_t (magnitude & phase) and uint15_t (pressure) results */
+void print_PressureMagnitudePhase(char *text, uint16_t pressure, fixed32_t magnitude, fixed32_t phase) {
+  char msg[MSG_MAXLEN];
+  char tmp[MSG_MAXLEN];
+  sprintf(msg, "%s", text);
+  // sprintf(msg, "    %s = (", text);
+  /* Magnitude */
+  sprintf(tmp, "%d", pressure);
+  strcat(msg, tmp);
+  
+  sprintf_fixed32(tmp, magnitude);
+  strcat(msg, tmp);
+  // strcat(msg, ", ");
+  /* Phase */
+  sprintf_fixed32(tmp, phase);
+  strcat(msg, tmp);
+  // strcat(msg, ")\r\n");
+  strcat(msg, "\r\n");
+  PRINT(msg);
+}
+
+/* Helper function for printing fixed32_t (magnitude & phase) and results */
 void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
@@ -553,9 +587,9 @@ ADI_UART_RESULT_TYPE uart_Init(void) {
   //{
   //    return result;
   // }
-  /* Set UART baud rate to 9600 */
+  /* Set UART baud rate to 115200 */
   if (ADI_UART_SUCCESS !=
-      (result = adi_UART_SetBaudRate(hUartDevice, ADI_UART_BAUD_9600))) {
+      (result = adi_UART_SetBaudRate(hUartDevice, ADI_UART_BAUD_115200))) {
     return result;
   }
   /* Enable UART */

@@ -66,7 +66,7 @@ License Agreement.
 #define I2C_MASTER_CLOCK 100000
 
 /* Maximum I2C TX/RX buffer size. */
-#define I2C_BUFFER_SIZE 5
+#define I2C_BUFFER_SIZE 3
 
 /* Slave address of the Arduino pump module. */
 #define I2C_PUMP_SLAVE_ADDRESS 0x77
@@ -142,6 +142,7 @@ void convert_dft_results(int16_t *dft_results, q15_t *dft_results_q15,
                          q31_t *dft_results_q31);
 void sprintf_fixed32(char *out, fixed32_t in);
 void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase);
+void print_PressureMagnitudePhase(char *text, uint16_t pressure, fixed32_t magnitude, fixed32_t phase);
 void test_print(char *pBuffer);
 ADI_UART_RESULT_TYPE uart_Init(void);
 ADI_UART_RESULT_TYPE uart_UnInit(void);
