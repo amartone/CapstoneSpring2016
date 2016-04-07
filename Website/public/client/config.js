@@ -41,6 +41,12 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/history", {
+                templateUrl: "views/bp/bp.view.html",
+                resolve:{
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
             .otherwise({
                 redirectTo: "/welcome"
             });
