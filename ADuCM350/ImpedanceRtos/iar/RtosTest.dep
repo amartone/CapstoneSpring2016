@@ -1,0 +1,2623 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>131828939</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\macros.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\gpio.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_gpt_config.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_rtos.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\system.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\gpt.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\defADuCM350.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_tmr.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\test_common.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mutex.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_rtl_lock.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_core.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\RtosTest.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_sem.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_task.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_sem.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_flag.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\ucos_ii.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_timing.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\app_hooks.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\system.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_c.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_core.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_thread.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mbox.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_cpu_c.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_dbg_r.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_q.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mem.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_time.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_tls.__cstat.et</file>
+      <file>$PROJ_DIR$\..\..\..\src\dma.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\flash.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\beep.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\gpio.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\gpt.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\i2c.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\i2s.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\adi_nvic.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\afe.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\captouch.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\adi_int.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\captouch_lib.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_int_table.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\spi.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_event.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_c.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\startup.c</file>
+      <file>$_MICRIUM_DIR_$\uC-CPU\ARM-Cortex-M3\IAR\cpu_c.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_critical.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\rng.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_mutex.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\system.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_timing.c</file>
+      <file>$_MICRIUM_DIR_$\uC-CPU\cpu_core.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_sem.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_init.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\lcd.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\uart.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_thread.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_ucos2_arch_c.c</file>
+      <file>$PROJ_DIR$\..\..\test_common.c</file>
+      <file>$_MICRIUM_DIR_$\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\RtosTest.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_message.c</file>
+      <file>$PROJ_DIR$\..\app_hooks.c</file>
+      <file>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_rtl_lock.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\wdt.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\rtc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\wut.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_int.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\afe.o</file>
+      <file>$PROJ_DIR$\..\Readme.txt</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_mem.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_sem.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_dbg_r.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_tmr.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_mutex.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_flag.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\app_hooks.o</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_core.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_nvic.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\beep.o</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_q.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_time.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\system.o</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_c.c</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_mbox.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch_lib.o</file>
+      <file>$_MICRIUM_DIR_$\uCOS-II\Source\os_task.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\dma.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\flash.o</file>
+      <file>$PROJ_DIR$\Debug\Exe\RtosTest.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpio.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpt.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2s.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_thread.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\test_common.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_rtl_lock.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\rng.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_core.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_timing.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\RtosTest.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\lcd.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\wdt.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_critical.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\rtc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_init.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_event.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_mutex.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_int_table.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_sem.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\wut.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_arch_c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_message.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_tmr.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_core.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\dma.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rtc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_task.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_a.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_sem.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_cpu_c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_cpu_a.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mbox.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_time.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_dbg_r.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch_lib.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\beep.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mem.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpt.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\flash.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\afe.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_flag.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mutex.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_q.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_int.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_nvic.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2s.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\lcd.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rng.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\app_hooks.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mbox.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mutex.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_event.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_core.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\wdt.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_mem.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_init.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_core.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_q.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_arch_c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_int_table.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_critical.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_rtl_lock.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_sem.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_cpu_c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\wut.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_mutex.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_timing.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\system.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RtosTest.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\cpu_c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_dbg_r.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_flag.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\test_common.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_message.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_thread.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\uart.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2s.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\ucos_ii.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\ucos_ii.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\gpio.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_sem.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\dma.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\beep.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\wut.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_task.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\lcd.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\wdt.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_time.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RtosTest.pbd</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\flash.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\gpt.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\captouch.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\os_tmr.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\adi_nvic.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\afe.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2c.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rng.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rtc.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\spi.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\adi_int.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\captouch_lib.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\i2s.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\cpu_def.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\cpu_core.h</file>
+      <file>$PROJ_DIR$\..\includes.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-LIB\lib_def.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\Cfg\Template\cpu_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\ucos_ii.h</file>
+      <file>$PROJ_DIR$\..\lib_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-LIB\lib_mem.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_c.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_arch_int_table.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_arch_c.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_event.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2c.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_nvic.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\lcd.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_critical.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_init.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_message.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\flash.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpio.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpt.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2s.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\beep.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\rng.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\afe.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_int.__cstat.et</file>
+      <file>$TOOLKIT_DIR$\inc\c\time.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\rtc.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\wdt.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\dma.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\wut.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\captouch_lib.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_mutex.__cstat.et</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\spi.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_time.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-LIB\Ports\ARM-Cortex-M3\IAR\lib_mem_a.asm</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_q.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_dbg_r.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mutex.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_task.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\cpu_core.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mem.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mbox.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_tmr.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\ucos_ii.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_flag.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_c.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_core.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_sem.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\lcd.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\lib_mem_a.o</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\system.c</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_c.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\startup.c</file>
+      <file>$PROJ_DIR$\..\adi_global_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_sid_cm350.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\ADuCM350_device.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\wut.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_nvic.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\device.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\misra.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm3.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_int.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_version.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_wut_config.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_lcd_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_rng_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_spi_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\dma.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\afe.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\uart.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_afe_config.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_uart_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_beep_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\beep.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\captouch.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_ct_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_wdt_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\wdt.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\test_common.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\captouch_lib.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\flash.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_fee_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_i2c_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config\adi_i2s_config.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\app_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\rtc.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\i2c.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\startup.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\rng.h</file>
+      <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu.h</file>
+      <file>$PROJ_DIR$\..\os_cfg.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\Debug\List\RtosTest.log</file>
+      <file>$PROJ_DIR$\Debug\List\RtosTest.map</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_rtl_lock.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_critical.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_event.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_thread.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_ucos2_arch_c.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_mutex.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_message.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_tls.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_timing.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch_int_table.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_sem.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_init.c</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch_c.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_tls.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\adi_osal_ucos2_tls.pbi</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch_internal.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\limits.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\osal_common.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\osal_ucos.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\version.h</file>
+      <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\adi_types.h</file>
+      <file>$TOOLKIT_DIR$\config\linker\AnalogDevices\ADuCM350BBCZ.icf</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 102 337 336</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\dma.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 134</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 100</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 150</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 101</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\beep.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 147</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 91</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\gpio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 103</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\gpt.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 149</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\i2c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 157</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 105</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\i2s.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 158</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 106</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\adi_nvic.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 156</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 90</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\afe.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 151</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 80</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\captouch.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 137</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\adi_int.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 155</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 79</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\captouch_lib.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 146</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 98</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_int_table.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 173</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 126</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 230</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\spi.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 174</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 117</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_event.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 164</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 124</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 232</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 188</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 120</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 229</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\startup.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 171</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 107</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uC-CPU\ARM-Cortex-M3\IAR\cpu_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 185</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 110</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_critical.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 175</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 121</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 237</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\rng.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 160</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_mutex.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 180</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 125</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 257</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\system.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 182</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 94</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_timing.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 114</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uC-CPU\cpu_core.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 169</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 113</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_sem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 177</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 127</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 190</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 119</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 236</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_a.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 142</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_init.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 168</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 123</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 238</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\lcd.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 159</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 116</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 183</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 128</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_thread.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 192</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 108</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 30</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_ucos2_arch_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 172</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 130</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 231</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\test_common.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 189</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 138</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\RtosTest.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 184</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 115</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 299 277 301 289 295 305 285 319 287 10 288 310 226 313 307 298 327 9 297 292 326 322 306 329 328 321 314 332 4 361 286 291 311 316 2 315 5 312 323 219 331 258 318 290 1 0 3 333 282 293 283 296 294 284 358 12 7 8 11 6 300 308 317 251 324 325 302 303</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 251 288 299 290 0 3 1 301 298 2 322 321 315 314 226 327 333 332 305 292 282 9 295 289 297 358 361 293 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 328 306 307 310 308 312 311 313 316 323 324 329 325 219 326 277 302 331 303 258 318 317 319</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_message.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 191</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 131</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 239</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app_hooks.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 161</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 88</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 225 333 228 224 223 226 291 222 327 220 288 221 227 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 222 224 291 288 220 225 223 228 221 227 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_rtl_lock.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 176</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 111</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\wdt.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 118</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\rtc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 135</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 122</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\wut.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 179</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 129</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_mem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 167</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 148</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_sem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 198</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 139</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_dbg_r.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 186</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 145</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_tmr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 210</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 132</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_mutex.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 163</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 153</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_flag.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 187</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 152</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_core.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 165</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 133</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_q.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 170</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 154</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_time.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 205</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 144</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 178</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 141</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_mbox.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 162</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 143</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\uCOS-II\Source\os_task.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 202</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 136</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\RtosTest.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 337 336</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 362 79 90 120 126 119 130 121 124 123 131 125 111 127 108 114 80 88 91 97 98 138 110 113 100 101 103 104 105 106 116 133 142 141 145 152 143 148 153 154 139 136 144 132 112 122 115 117 107 94 109 128 118 129 363 364 334 335</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 183</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 128</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 249</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 288 295 4 2 307 293 298 301 299 310 361 12 7 300 314 9 287 10 297 289 8 5 292 315 290 1 0 3 282 283 296 294 284 358 11 6 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 315 314 307 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 310</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2s.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 158</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 106</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 243</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 293 297 295 1 288 296 358 289 305 3 294 299 292 309 290 0 282 283 284 219 298 301 326 9 4 287 10 361 12 286 291 285 7 8 2 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 309 288 299 290 0 3 1 301 298 219 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 326 305</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\gpio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 103</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 241</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 283 295 299 288 1 3 297 282 284 289 300 5 293 296 294 358 290 0 292 9 4 287 10 301 361 12 286 291 285 6 7 8 2 11 298</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 5 292 282 9 295 289 288 299 290 0 3 1 301 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 284</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\dma.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 134</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 100</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 254</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 305 292 282 9 295 289 288 299 290 0 3 1 301 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 322 321</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\beep.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 147</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 91</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 244</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 299 298 311 4 361 12 312 293 297 286 291 288 301 9 287 10 289 285 295 1 290 0 3 292 282 283 296 294 284 358 309 7 8 2 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 309 288 299 290 0 3 1 301 298 293 295 289 297 312 292 282 9 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 311</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\wut.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 179</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 129</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 255</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 283 295 288 292 297 9 282 284 289 285 2 293 298 301 299 300 296 294 358 286 291 290 1 0 3 4 287 10 361 12 7 8 11 5 6</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 285 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 5 284 300</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\lcd.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 159</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 116</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 235</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 292 288 299 283 295 277 1 3 282 284 289 2 290 0 302 293 296 294 358 297 315 298 301 314 9 4 287 10 361 12 286 291 285 7 8 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 315 314 277 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 302</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\wdt.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 118</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 253</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 289 298 301 299 288 293 287 10 330 9 297 295 2 317 4 361 12 292 318 290 1 0 3 282 283 296 294 284 358 286 291 285 7 8 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 318 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 317 330</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 150</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 101</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 240</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 295 287 288 10 299 293 289 286 291 305 298 301 9 297 292 323 4 361 12 285 324 290 1 0 3 282 283 296 294 284 358 2 7 8 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 2 288 299 290 0 3 1 301 298 293 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 305 324 323</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\gpt.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 149</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 242</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 292 1 283 295 288 293 289 3 282 284 11 309 299 290 0 6 296 294 358 297 8 298 12 301 9 4 287 10 361 7 2 5 300 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 309 288 299 290 0 3 1 301 298 11 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 285 300 5 284 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\captouch.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 137</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 247</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 5 4 8 313 1 3 289 292 2 299 288 361 12 7 300 295 293 315 290 0 9 287 10 297 11 6 298 301 314 316 282 283 296 294 284 358 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 315 314 313 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 316</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\adi_nvic.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 156</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 90</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 234</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 296 289 297 288 300 293 294 295 1 3 8 5 299 282 283 284 358 290 0 12 7 2 292 287 9 4 10 301 361 286 11 6 291 285 298</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 292 282 9 295 289 288 299 290 0 3 1 301 297 358 361 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\afe.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 151</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 80</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 248</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 288 299 289 6 306 4 8 5 292 309 293 1 290 0 361 12 7 2 305 310 298 3 9 287 10 297 11 300 295 301 282 283 296 294 284 358 286 291 285 307 308</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 309 288 299 290 0 3 1 301 298 305 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 306 307 310 308</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\i2c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 157</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 233</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 289 292 329 290 0 288 287 10 11 309 5 299 9 8 298 300 295 293 305 1 3 297 325 4 361 12 7 2 6 301 282 283 296 294 284 358 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 309 288 299 290 0 3 1 301 298 295 289 297 329 292 282 9 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 325 305</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rng.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 160</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 245</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 303 298 283 295 299 331 293 297 282 284 286 291 288 301 296 294 358 285 1 290 0 3 289 292 9 4 287 10 361 12 309 7 8 2 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 309 288 299 290 0 3 1 301 298 293 295 289 297 331 292 282 9 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 303</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rtc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 135</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 122</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 252</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 287 301 299 10 289 12 2 330 288 9 297 7 293 298 295 4 361 8 5 6 292 328 1 290 0 3 282 283 296 294 284 358 11 300 309 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 309 288 299 290 0 3 1 301 298 293 328 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 330</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\spi.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 174</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 117</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 246</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 288 289 287 10 299 300 5 301 9 297 8 298 295 309 304 292 4 361 12 11 293 258 305 1 290 0 3 282 283 296 294 284 358 7 2 6 286 291 285</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 309 288 299 290 0 3 1 301 298 258 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 305 304</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\adi_int.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 155</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 79</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 250</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7 299 288 297 12 300 361 301 4 289 8 5 295 292 9 287 10 2 290 1 0 3 282 293 283 296 294 284 358 286 11 6 291 285 298</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 295 292 282 9 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\captouch_lib.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 146</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 98</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 256</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 292 298 283 295 288 5 290 0 309 282 284 289 8 6 2 313 299 1 3 318 293 296 294 358 297 11 12 315 319 320 301 314 317 9 4 287 10 361 7 300 286 291 285 316</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 293 2 288 299 290 0 3 1 301 298 315 314 309 319 318 292 282 9 295 289 297 358 361 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 317 313 316 320</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_a.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 142</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_time.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 205</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 144</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-LIB\Ports\ARM-Cortex-M3\IAR\lib_mem_a.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 278</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_q.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 170</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 154</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_dbg_r.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 186</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 145</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 33</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mutex.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 163</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 153</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 16</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_task.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 202</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 136</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 333 226 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 138</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\cpu_core.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 169</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 113</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 220 225 221 224 288 223 291</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 221 224 291 288 220 225 223</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 167</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 148</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_mbox.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 162</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 143</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 333 226 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_tmr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 210</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 132</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 13</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 327 332 226 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\ucos_ii.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 196</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 195</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 332 262 272 268 265 327 226 274 269 264 275 260 333 270</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332 274 272 269 268 264 262 275 265 260 270</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_flag.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 187</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 152</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 23</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 333 226 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 185</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 110</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 291 288 224 221 223 225 220</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 224 291 288 220 225 221 223</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_core.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 165</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 133</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 29</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 332 226 327 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source\os_sem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 198</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 139</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 333 226 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 189</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 286 291 289 298 299 288 295 315 314 317 4 361 292 309 301 1 9 287 10 297 285 322 2 319 290 0 3 321 318 282 293 283 296 294 284 358 12 7 8 11 5 6 300</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 289 288 299 290 0 3 1 301 322 298 321 309 2 315 314 319 318 292 282 9 295 297 358 361 293 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 317</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\system.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 182</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 94</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 27</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0 289 297 290 2 9 292 5 288 287 10 8 6 1 3 11 298 4 361 7 299 301 285 282 293 283 296 294 284 295 358 12 300 286 291</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 289 288 299 290 0 3 1 301 10 2 298 292 282 9 295 297 358 361 293 4 12 283 287 296 294 286 8 291 7 284 11 6 285 300 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Ports\ARM-Cortex-M3\CMSIS\IAR\os_cpu_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 178</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 141</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 32</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 333 226 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\startup.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 171</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 107</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 300 288 282 284 289 297 283 295 1 3 299 293 296 294 358 290 0 12 292 9 4 287 10 301 361 286 291 285 6 330 7 8 2 11 5 298</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 330 292 282 9 295 289 288 299 290 0 3 1 301 297 358 361 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 190</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 119</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 236</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9 11 299 288 354 289 295 357 297 287 10 358 301 298 361 355 4 8 309 359 360 314 290 1 0 3 226 292 282 293 283 296 294 284 12 7 2 5 333 315 286 291 285 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 315 288 299 290 0 3 1 301 298 314 309 358 289 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 226 327 333 332 360</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_rtl_lock.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 176</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 111</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 290 0 287 10 297 333 289 354 9 286 291 357 288 1 3 361 355 4 285 295 292 359 299 301 226 358 282 293 283 296 294 284 12 7 298 8 2 11 5 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_critical.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 175</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 121</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 237</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 289 354 9 286 333 290 0 287 10 297 291 288 1 3 361 355 4 285 295 292 359 299 301 357 226 358 282 293 283 296 294 284 12 7 298 8 2 11 5 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_event.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 164</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 124</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 232</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 299 11 4 333 332 361 355 297 289 359 288 301 354 9 287 10 8 295 292 358 357 298 314 290 1 0 3 226 282 293 283 296 294 284 12 7 2 5 315 286 291 285 6 300 327</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 315 288 299 290 0 3 1 301 298 314 358 289 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_thread.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 192</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 108</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 30</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 288 289 8 290 0 354 355 4 5 357 314 298 297 292 332 358 1 3 361 9 287 10 7 2 300 295 359 299 301 226 282 293 283 296 294 284 12 11 6 327 315 286 291 285 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 315 288 299 290 0 3 1 301 298 314 2 358 289 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 11 6 285 300 5 284 226 327 333 332</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_ucos2_arch_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 172</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 130</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 231</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 298 288 224 357 292 282 284 7 355 299 289 358 283 2 333 301 361 297 226 293 296 294 295 12 8 5 356 359 354 1 290 0 3 9 4 287 10 11 220 309 286 291 285 6 300 327 332 225</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 309 288 299 290 0 3 1 301 298 356 358 289 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 226 327 333 332 224 220 225</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_mutex.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 180</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 125</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 257</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9 286 354 289 309 290 0 287 10 297 8 298 357 288 1 3 361 355 4 11 295 299 359 356 301 226 358 292 282 293 283 296 294 284 12 7 2 5 333 291 285 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332 356 309</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_message.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 191</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 131</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 239</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 290 0 287 10 297 309 289 354 9 286 8 298 357 288 1 3 361 355 4 11 295 299 359 356 301 226 358 292 282 293 283 296 294 284 12 7 2 5 333 291 285 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332 356 309</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_tls.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 353</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 361 301 299 358 283 289 333 288 357 292 282 284 291 297 226 293 296 294 295 12 7 285 359 290 1 0 3 354 355 9 4 287 10 286 298 8 2 11 5 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 226 327 333 332 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_timing.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 114</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 295 292 297 294 12 289 226 293 7 358 296 11 6 357 361 299 288 301 282 283 284 8 327 359 356 290 1 0 3 354 355 9 4 287 10 286 2 5 300 332 291 285 298 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332 356</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch_int_table.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 173</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 126</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 230</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1 297 288 3 290 355 289 361 299 301 0 358</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 355</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_sem.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 177</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 127</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 361 355 288 1 3 297 292 4 285 6 298 357 290 0 289 354 9 287 10 286 291 12 327 359 309 299 301 226 358 282 293 283 296 294 284 295 7 300 332 8 2 11 5 333</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332 309</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_init.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 168</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 123</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 238</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 358 361 301 299 283 289 309 288 357 292 282 284 2 333 297 226 293 296 294 295 12 7 8 5 359 356 360 290 1 0 3 354 355 9 4 287 10 286 11 298 291 285 6 300 327 332</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 358 289 288 299 290 0 3 1 301 297 361 359 357 354 355 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 298 11 6 285 300 5 284 226 327 333 332 356 309 360</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports\adi_osal_arch_c.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 188</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 120</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 229</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 6 289 299 285 288 354 298 358 297 292 301 361 9 287 10 286 291 12 356 355 357 1 290 0 3 282 293 283 296 294 284 295 300 309 7 8 2 11 5</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 309 288 299 290 0 3 1 301 298 356 358 289 297 361 355 354 292 282 9 295 293 4 12 283 287 296 294 286 8 291 7 10 2 11 6 285 300 5 284 357</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_int_table.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_event.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_arch_c.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_critical.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_mutex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_timing.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_sem.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_init.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_thread.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Ports\adi_osal_ucos2_arch_c.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_message.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\osal\uCOS-II\Source\adi_osal_ucos2_rtl_lock.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source\adi_osal_ucos2_tls.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>ILINK</tool>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+

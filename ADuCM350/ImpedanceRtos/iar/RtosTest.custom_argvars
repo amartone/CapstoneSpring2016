@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<iarUserArgVars>
+  <group active="true" name="Micrium">
+    <variable>
+      <name>_MICRIUM_DIR_</name>
+      <value>G:\Development\NU\NU-Capstone\ADuCM350\uCOS-II-ADuCM350\Micrium</value>
+    </variable>
+  </group>
+</iarUserArgVars>
+
+
