@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\libosal.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>Build_all_configurations</name>
+      <member>
+        <project>libosal</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>libosal</project>
+        <configuration>Release</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+
