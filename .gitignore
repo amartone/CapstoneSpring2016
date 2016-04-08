@@ -1,3 +1,5 @@
 Debug/
 ADuCM350/test_2wire/iar/settings/
+ADuCM350/2wire_impedance/iar/settings/
+ADuCM350/ImpedanceRtos/iar/settings/
 Website/node_modules
