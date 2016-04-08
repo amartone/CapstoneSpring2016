@@ -1,4 +1,5 @@
 module.exports = function(mongoose) {
+    var samples = require('./sample.schema.server.js')(mongoose);
 
     // use mongoose to declare a user schema
     var bpSchema = mongoose.Schema({
@@ -6,10 +7,10 @@ module.exports = function(mongoose) {
         date: Date,
         userId: String,
         diastolic: String,
-        systolic: String
+        systolic: String,
+        impedance: sample
         // collection property sets
         // collection name to 'user'
     }, {collection: 'capstone.bp'});
     return bpSchema;
 };
-
