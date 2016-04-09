@@ -186,6 +186,7 @@
         <option>
           <name>CCDefines</name>
           <state>ADI_DEBUG</state>
+          <state>ARM_MATH_CM3</state>
           <state>RELOCATE_IVT</state>
           <state>ADI_SYSTEM_CLOCK_TRANSITION</state>
           <state>OSAL_DEBUG</state>
@@ -265,11 +266,11 @@
         </option>
         <option>
           <name>IExtraOptionsCheck</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IExtraOptions</name>
-          <state></state>
+          <state>--diag_suppress Pe1665</state>
         </option>
         <option>
           <name>CCLangConformance</name>
@@ -619,7 +620,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>RtosTest.srec</state>
+          <state>ImpedanceRtos.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -662,7 +663,7 @@
         <debug>1</debug>
         <option>
           <name>IlinkOutputFile</name>
-          <state>RtosTest.out</state>
+          <state>ImpedanceRtos.out</state>
         </option>
         <option>
           <name>IlinkLibIOConfig</name>
@@ -1160,6 +1161,7 @@
         </option>
         <option>
           <name>CCDefines</name>
+          <state>ARM_MATH_CM3</state>
           <state>NDEBUG</state>
           <state>RELOCATE_IVT</state>
           <state>ADI_SYSTEM_CLOCK_TRANSITION</state>
@@ -1595,7 +1597,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>RtosTest.srec</state>
+          <state>ImpedanceRtos.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1638,7 +1640,7 @@
         <debug>0</debug>
         <option>
           <name>IlinkOutputFile</name>
-          <state>RtosTest.out</state>
+          <state>ImpedanceRtos.out</state>
         </option>
         <option>
           <name>IlinkLibIOConfig</name>
@@ -1954,6 +1956,48 @@
     </settings>
   </configuration>
   <group>
+    <name>App Sources</name>
+    <file>
+      <name>$PROJ_DIR$\..\adi_global_config.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app_hooks.c</name>
+    </file>
+    <file>
+      <name>$_MICRIUM_DIR_$\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ImpedanceRtos.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ImpedanceRtos.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\includes.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\lib_cfg.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\MainThread.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\os_cfg.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\PinMux.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\PumpThread.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\TransmitDataThread.c</name>
+    </file>
+  </group>
+  <group>
     <name>Driver Soruces</name>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\adi_int.c</name>
@@ -2068,21 +2112,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\system.c</name>
-    </file>
-  </group>
-  <group>
-    <name>Test Sources</name>
-    <file>
-      <name>$PROJ_DIR$\..\app_hooks.c</name>
-    </file>
-    <file>
-      <name>$_MICRIUM_DIR_$\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\RtosTest.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
     </file>
   </group>
   <group>

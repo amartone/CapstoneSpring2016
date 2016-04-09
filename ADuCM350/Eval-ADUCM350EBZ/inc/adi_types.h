@@ -27,10 +27,11 @@ typedef uint8_t  bool_t;
 
 /* define required types that are not provided by stdint.h or stdbool.h ... */
 typedef char                char_t;
-typedef float               float32_t;
-#if !defined(__NO_FLOAT64)
-typedef long double         float64_t;
-#endif
+// Commented out by Oleg due to duplicate definition in arm_math.h.
+//typedef float               float32_t;
+//#if !defined(__NO_FLOAT64)
+//typedef long double         float64_t;
+//#endif
 
 #endif /* __ADI_TYPES_H__ */
 

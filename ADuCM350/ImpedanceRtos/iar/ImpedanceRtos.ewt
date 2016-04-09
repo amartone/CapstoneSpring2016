@@ -2212,7 +2212,10 @@
     </file>
   </group>
   <group>
-    <name>Test Sources</name>
+    <name>App Sources</name>
+    <file>
+      <name>$PROJ_DIR$\..\adi_global_config.h</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\app_hooks.c</name>
     </file>
@@ -2220,10 +2223,34 @@
       <name>$_MICRIUM_DIR_$\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\RtosTest.c</name>
+      <name>$PROJ_DIR$\..\ImpedanceRtos.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ImpedanceRtos.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\includes.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\lib_cfg.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\MainThread.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\os_cfg.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\PinMux.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\PumpThread.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\TransmitDataThread.c</name>
     </file>
   </group>
   <group>
