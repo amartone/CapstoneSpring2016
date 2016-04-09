@@ -6,13 +6,16 @@ var q = require("q");
 module.exports = function (db, mongoose) {
 
     var BPSchema = require("./bp.schema.server.js")(mongoose);
+    var SampleSchema = require("./sample.schema.server.js")(mongoose);
 
     // create user model from schema
     var BPModel = mongoose.model('BP', BPSchema);
+    var SampleModel = mongoose.model('S', SampleSchema);
 
 
     var api = {
-        findBpByUserId: findBpByUserId
+        findBpByUserId: findBpByUserId,
+        importIntoMongo: importIntoMongo
     };
     return api;
 
@@ -26,6 +29,20 @@ module.exports = function (db, mongoose) {
                 deferred.reject(err);
             } else {
                 console.log("Found:" + doc)
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function importIntoMongo(sample){
+        var deferred = q.defer();
+
+
+        SampleModel.create(sample, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
                 deferred.resolve(doc);
             }
         });

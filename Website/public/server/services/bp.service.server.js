@@ -2,7 +2,11 @@
  * Created by Andrew on 3/15/16.
  */
 module.exports = function (app, bpModel) {
+
     app.get("/api/capstone/user/:userId/bp", getAllBpForUser);
+
+    app.post("/api/capstone/bp/", importIntoMongo);
+
 
     function getAllBpForUser(req, res) {
         var userId = req.params.userId;
@@ -10,7 +14,6 @@ module.exports = function (app, bpModel) {
         userId = bpModel.findBpByUserId(userId)
             .then(
                 function ( doc ) {
-                    console.log("dsfdsfdsfd: " + doc);
                     res.json(doc);
                 },
                 // send error if promise rejected
@@ -19,5 +22,23 @@ module.exports = function (app, bpModel) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+
+    function importIntoMongo(req, res){
+        var sample = req.body;
+
+        bpModel.importIntoMongo(sample)
+            .then(
+                function(doc){
+                    res.json(doc);
+                },
+
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+
+
     }
 };

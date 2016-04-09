@@ -9,6 +9,8 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/user", apiRouter);
     app.delete("/api/assignment/user/:id", deleteUser);
     app.post("/api/assignment/logout", logout);
+
+
     app.get("/api/assignment/loggedin", loggedIn);
 
 
