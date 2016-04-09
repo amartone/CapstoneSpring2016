@@ -68,25 +68,27 @@ void UX_LCD_Callback(void *pCBParam, uint32_t nEvent, void *EventArg) {
     return;
 }
 
-void BlinkThreadRun(void* arg) {
+void UxThreadRun(void* arg) {
   volatile uint32_t i;
   uint32_t count = 0;
 
+  // Initialize LCD display.
+  UX_LCD_Init();
+  UX_LCD_ShowMessage("CAPSTONE"); // Must be 8 characters long.
 
-  /* Initialize GPIO */
+  // Initialize GPIO.
   if (ADI_GPIO_SUCCESS != adi_GPIO_Init()) {
     FAIL("adi_GPIO_Init");
   }
 
-  /* Enable GPIO output drivers */
+  // Enable GPIO output drivers.
   if (ADI_GPIO_SUCCESS !=
       adi_GPIO_SetOutputEnable(led_DISPLAY.Port, led_DISPLAY.Pins, true)) {
     FAIL("adi_GPIO_SetOutputEnable (led_DISPLAY)");
   }
 
-  /* Loop indefinitely */
   while (1) {
-    /* Delay */
+    // Delay.
     for (i = 0; i < 50000; i++)
       ;
     

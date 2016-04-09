@@ -48,8 +48,8 @@
 // General RTOS/initialization. ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-#define THREAD_BLINK_STK_SIZE 50
-#define THREAD_BLINK_PRIO 100
+#define THREAD_UX_STK_SIZE 200
+#define THREAD_UX_PRIO 1
 #define THREAD_MAIN_STK_SIZE 200
 #define THREAD_MAIN_PRIO 5
 
@@ -62,7 +62,7 @@ extern int32_t adi_initpinmux(void);
 
 extern void UX_LCD_Init();
 extern void UX_LCD_ShowMessage(const uint8_t* message);
-extern void BlinkThreadRun(void* arg);
+extern void UxThreadRun(void* arg);
 
 
 ////////////////////////////////////////////////////////////////////////////////
