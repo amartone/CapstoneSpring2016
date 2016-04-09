@@ -1,5 +1,5 @@
 #include "ImpedanceRtos.h"
 
-void TransmitDataThread(void* arg) {
+void TransmitDataThreadRun(void* arg) {
   // TODO
 }

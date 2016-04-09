@@ -321,6 +321,7 @@
           <state>$PROJ_DIR$\..</state>
           <state>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc</state>
           <state>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\config</state>
+          <state>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\inc\lcd</state>
           <state>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Source</state>
           <state>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\osal\uCOS-II\Ports</state>
           <state>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uCOS-II\Source</state>
@@ -1996,6 +1997,9 @@
     <file>
       <name>$PROJ_DIR$\..\TransmitDataThread.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\UX.c</name>
+    </file>
   </group>
   <group>
     <name>Driver Soruces</name>
@@ -2037,6 +2041,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\lcd.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\lcd\lcd_VIM828.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\rng.c</name>
