@@ -1,0 +1,16 @@
+Transducer-to-pressure relationship
+===================================
+Measured by reading PIN A0 on Arduino and comparing to the hand pump pressure gauge
+
+
+mm Hg     -    value
+0 - 40
+60 - 180
+100 - 285
+120 - 334
+160 - 434
+
+
+(kTransducerValue) = 2.4728x + 36.989 (pressure_in_mmHg)
+
+pressure_in_mmHg = 0.4042 (kTransducerValue) - 14.913
