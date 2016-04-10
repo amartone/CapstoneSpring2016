@@ -88,10 +88,6 @@ void UxThreadRun(void* arg) {
   }
 
   while (1) {
-    // Delay.
-    for (i = 0; i < 50000; i++)
-      ;
-    
     if (++count % 2) {
       if (ADI_GPIO_SUCCESS !=
           adi_GPIO_SetLow(led_DISPLAY.Port, led_DISPLAY.Pins)) {
@@ -103,5 +99,7 @@ void UxThreadRun(void* arg) {
         FAIL("adi_GPIO_SetHigh (led_DISPLAY)");
       }
     }
+
+    OSTimeDlyHMSM(0, 0, 1, 0);
   }
 }
