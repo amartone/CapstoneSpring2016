@@ -68,7 +68,7 @@ void UX_LCD_Callback(void *pCBParam, uint32_t nEvent, void *EventArg) {
     return;
 }
 
-void UxThreadRun(void* arg) {
+void UX_Task(void* arg) {
   volatile uint32_t i;
   uint32_t count = 0;
 

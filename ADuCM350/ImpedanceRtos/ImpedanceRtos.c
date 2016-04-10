@@ -1,18 +1,26 @@
 #include "ImpedanceRtos.h"
 
-char g_ThreadMainStack[THREAD_MAIN_STK_SIZE];
-char g_ThreadUxStack[THREAD_UX_STK_SIZE];
+char g_TaskMainStack[TASK_MAIN_STK_SIZE];
+char g_TaskUxStack[TASK_UX_STK_SIZE];
 
 int main(void) {
   INT8U OSRetVal;
 
   SystemInit();
+
+  // Change the system clock source to HFXTAL and change clock frequency to
+  // 16MHz. Requirement for AFE (ACLK).
+  SystemTransitionClocks(ADI_SYS_CLOCK_TRIGGER_MEASUREMENT_ON);
+
+  // SPLL with 32MHz used, need to divide by 2.
+  SetSystemClockDivider(ADI_SYS_CLOCK_UART, 2);
+
   test_Init();
   adi_initpinmux();
 
   OSInit();
 
-  // Create the main impedance thread.
+  // Create the main thread.
   OSRetVal = OSTaskCreate(MainThreadRun, NULL,
                           (void*)(g_ThreadMainStack + THREAD_MAIN_STK_SIZE),
                           THREAD_MAIN_PRIO);
@@ -21,11 +29,10 @@ int main(void) {
     return 1;
   }
 
-
-  // Create the low-priority UX thread.
-  OSRetVal = OSTaskCreate(UxThreadRun, NULL,
-                          (void*)(g_ThreadUxStack + THREAD_UX_STK_SIZE),
-                          THREAD_UX_PRIO);
+  // Create the low-priority UX task.
+  OSRetVal = OSTaskCreate(UX_Task, NULL,
+                          (void*)(g_TaskUxStack + TASK_UX_STK_SIZE),
+                          TASK_UX_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the blink thread.\n");
     return 1;
@@ -34,7 +41,7 @@ int main(void) {
   SysTick_Config(M3_FREQ / SYSTICKS_PER_SECOND);
   OSStart();
 
-  /* Should never get here. */
+  // Should never get here.
   FAIL("Error starting the RTOS.\n");
   return 0;
 }

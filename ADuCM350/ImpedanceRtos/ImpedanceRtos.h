@@ -48,10 +48,13 @@
 // General RTOS/initialization. ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-#define THREAD_UX_STK_SIZE 200
-#define THREAD_UX_PRIO 1
-#define THREAD_MAIN_STK_SIZE 200
-#define THREAD_MAIN_PRIO 5
+#define M3_FREQ 16000000
+#define SYSTICKS_PER_SECOND 1000
+
+#define TASK_MAIN_STK_SIZE 500
+#define TASK_MAIN_PRIO 5
+#define TASK_UX_STK_SIZE 100
+#define TASK_UX_PRIO 8
 
 extern int32_t adi_initpinmux(void);
 
@@ -62,7 +65,7 @@ extern int32_t adi_initpinmux(void);
 
 extern void UX_LCD_Init();
 extern void UX_LCD_ShowMessage(const uint8_t* message);
-extern void UxThreadRun(void* arg);
+extern void UX_Task(void* arg);
 
 
 ////////////////////////////////////////////////////////////////////////////////
