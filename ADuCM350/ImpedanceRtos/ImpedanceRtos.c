@@ -1,7 +1,7 @@
 #include "ImpedanceRtos.h"
 
-char g_TaskMainStack[TASK_MAIN_STK_SIZE];
-char g_TaskUxStack[TASK_UX_STK_SIZE];
+OS_STK g_TaskMainStack[TASK_MAIN_STK_SIZE];
+OS_STK g_TaskUxStack[TASK_UX_STK_SIZE];
 
 int main(void) {
   INT8U OSRetVal;
@@ -22,17 +22,17 @@ int main(void) {
 
   // Create the main thread.
   OSRetVal = OSTaskCreate(MainThreadRun, NULL,
-                          (void*)(g_ThreadMainStack + THREAD_MAIN_STK_SIZE),
-                          THREAD_MAIN_PRIO);
+                          (OS_STK*)&g_TaskMainStack[TASK_MAIN_STK_SIZE - 1],
+                          TASK_MAIN_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the main thread.\n");
     return 1;
   }
 
   // Create the low-priority UX task.
-  OSRetVal = OSTaskCreate(UX_Task, NULL,
-                          (void*)(g_TaskUxStack + TASK_UX_STK_SIZE),
-                          TASK_UX_PRIO);
+  OSRetVal =
+      OSTaskCreate(UX_Task, NULL, (OS_STK*)&g_TaskUxStack[TASK_UX_STK_SIZE - 1],
+                   TASK_UX_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the blink thread.\n");
     return 1;
