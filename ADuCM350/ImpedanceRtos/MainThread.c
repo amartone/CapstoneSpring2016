@@ -51,6 +51,15 @@ typedef union {
   } parts;
 } fixed32_t;
 
+// Type used for passing impedance results through the message queue.
+typedef union {
+  int32_t full;
+  struct {
+    int16_t magnitude : 16;
+    int16_t phase : 16;
+  } parts;
+} packed32_t;
+
 // Time stuff
 
 // leap-year compute macro (ignores leap-seconds)
@@ -82,6 +91,7 @@ void rtcCallback(void *pCBParam, uint32_t Event, void *EventArg);
 void wutCallback(void *pCBParam, uint32_t Event, void *EventArg);
 
 void Ext_Int8_Callback(void *pCBParam, uint32_t Event, void *pArg);
+void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg);
 
 ADI_UART_HANDLE hUartDevice = NULL;
 
@@ -94,7 +104,8 @@ void convert_dft_results(int16_t *dft_results, q15_t *dft_results_q15,
 void sprintf_fixed32(char *out, fixed32_t in);
 void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase);
 void print_PressureMagnitudePhase(char *text, uint16_t pressure,
-                                  fixed32_t magnitude, fixed32_t phase);
+                                  fixed32_t magnitude, fixed32_t phase,
+                                  int queue_size);
 void test_print(char *pBuffer);
 ADI_UART_RESULT_TYPE uart_Init(void);
 ADI_UART_RESULT_TYPE uart_UnInit(void);
@@ -132,11 +143,15 @@ uint32_t seq_afe_acmeas2wire[] = {
     0x82000002, /* AFE_SEQ_CFG: SEQ_EN = 0 */
 };
 
+#define DFT_QUEUE_SIZE 20
+
 uint32_t nummeasurements;
 uint8_t done;
 
+OS_EVENT *dft_queue;
+void *dft_queue_msg[DFT_QUEUE_SIZE];
 
-void MainThreadRun(void* arg) {
+void MainThreadRun(void *arg) {
   ADI_AFE_DEV_HANDLE hDevice;
   int16_t dft_results[DFT_RESULTS_COUNT];
   q15_t dft_results_q15[DFT_RESULTS_COUNT];
@@ -150,7 +165,6 @@ void MainThreadRun(void* arg) {
   done = 0;
   uint16_t pressure;
   nummeasurements = 0;
-
   uint32_t rtcCount;
 
   // Initialize driver.
@@ -158,6 +172,11 @@ void MainThreadRun(void* arg) {
 
   // Calibrate.
   rtc_Calibrate();
+
+  // Initialize UART.
+  if (ADI_UART_SUCCESS != uart_Init()) {
+    FAIL("ADI_UART_SUCCESS");
+  }
 
   // Initialize flags.
   bRtcAlarmFlag = bRtcInterrupt = bWdtInterrupt = false;
@@ -167,59 +186,59 @@ void MainThreadRun(void* arg) {
     FAIL("adi_RTC_GetCount failed");
   }
 
-  /* Initialize the AFE API */
+  // Initialize the AFE API.
   if (adi_AFE_Init(&hDevice)) {
     FAIL("adi_AFE_Init");
   }
 
-  /* AFE power up */
+  // AFE power up.
   if (adi_AFE_PowerUp(hDevice)) {
     FAIL("adi_AFE_PowerUp");
   }
 
-  /* Excitation Channel Power-Up */
+  // Excitation Channel Power-up.
   if (adi_AFE_ExciteChanPowerUp(hDevice)) {
     FAIL("adi_AFE_ExciteChanPowerUp");
   }
 
-  /* TIA Channel Calibration */
+  // TIA Channel Calibration.
   if (adi_AFE_TiaChanCal(hDevice)) {
     FAIL("adi_AFE_TiaChanCal");
   }
 
-  /* Excitation Channel Calibration (Attenuation Enabled) */
+  // Excitation Channel Calibration (Attenuation Enabled).
   if (adi_AFE_ExciteChanCalAtten(hDevice)) {
     FAIL("adi_AFE_ExciteChanCalAtten");
   }
 
-  /* Update FCW in the sequence */
+  // Update FCW in the sequence.
   seq_afe_acmeas2wire[3] = SEQ_MMR_WRITE(REG_AFE_AFE_WG_FCW, FCW);
-  /* Update sine amplitude in the sequence */
+  // Update sine amplitude in the sequence.
   seq_afe_acmeas2wire[4] =
       SEQ_MMR_WRITE(REG_AFE_AFE_WG_AMPLITUDE, SINE_AMPLITUDE);
 
-  /* Recalculate CRC in software for the AC measurement, because we changed   */
-  /* FCW and sine amplitude settings                                          */
+  // Recalculate CRC in software for the AC measurement, because we changed.
+  // FCW and sine amplitude settings.
   adi_AFE_EnableSoftwareCRC(hDevice, true);
 
-  /* Perform the Impedance measurement */
+  // Perform the impedance measurement.
   if (adi_AFE_RunSequence(hDevice, seq_afe_acmeas2wire, (uint16_t *)dft_results,
                           DFT_RESULTS_COUNT)) {
     FAIL("Impedance Measurement");
   }
 
-  /* set RTC alarm */
+  // Set RTC alarm.
   printf("rtcCount: %d\r\n", rtcCount);
   if (ADI_RTC_SUCCESS != adi_RTC_SetAlarm(hRTC, rtcCount + 120)) {
     FAIL("adi_RTC_SetAlarm failed");
   }
 
-  /* enable RTC alarm */
+  // Enable RTC alarm.
   if (ADI_RTC_SUCCESS != adi_RTC_EnableAlarm(hRTC, true)) {
     FAIL("adi_RTC_EnableAlarm failed");
   }
 
-  // Initial impedance reading.
+  // Read the initial impedance.
   q31_t magnitudecal;
   q15_t phasecal;
 
@@ -231,13 +250,47 @@ void MainThreadRun(void* arg) {
   printf("raw rcal data: %d, %d\r\n", dft_results[1], dft_results[0]);
   printf("rcal (magnitude, phase) = (%d, %d)\r\n", magnitudecal, phasecal);
 
-  while (true) {
-    OSTimeDlyHMSM(0, 0, 0, 20);
+  // Create the message queue for communicating between the ISR and this task.
+  dft_queue = OSQCreate(&dft_queue_msg[0], DFT_QUEUE_SIZE);
 
-    dft_results[0] = pADI_AFE->AFE_DFT_RESULT_REAL;
-    dft_results[1] = pADI_AFE->AFE_DFT_RESULT_IMAG;
+  // Hook into the DFT interrupt.
+  if (ADI_AFE_SUCCESS !=
+      adi_AFE_RegisterAfeCallback(
+          hDevice, ADI_AFE_INT_GROUP_CAPTURE, AFE_DFT_Callback,
+          BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN)) {
+    FAIL("adi_AFE_RegisterAfeCallback");
+  }
+  if (ADI_AFE_SUCCESS !=
+      adi_AFE_ClearInterruptSource(
+          hDevice, ADI_AFE_INT_GROUP_CAPTURE,
+          BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN)) {
+    FAIL("adi_AFE_ClearInterruptSource");
+  }
+  if (ADI_AFE_SUCCESS !=
+      adi_AFE_EnableInterruptSource(
+          hDevice, ADI_AFE_INT_GROUP_CAPTURE,
+          BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN, true)) {
+    FAIL("adi_AFE_EnableInterruptSource");
+  }
+
+  packed32_t q_result;
+  uint8_t err;
+  void *q_result_void;
+  OS_Q_DATA q_data;
+  uint16_t q_size;
+  while (true) {
+    // Wait on the queue to get DFT data from the ISR.
+    q_result_void = OSQPend(dft_queue, 0, &err);
+    q_result = *((packed32_t *)&q_result_void);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSQPend: dft_queue");
+    }
+    OSQQuery(dft_queue, &q_data);
+    q_size = q_data.OSNMsgs;
 
     // Convert DFT results to 1.15 and 1.31 formats.
+    dft_results[0] = q_result.parts.magnitude;
+    dft_results[1] = q_result.parts.phase;
     convert_dft_results(dft_results, dft_results_q15, dft_results_q31);
 
     // Magnitude calculation
@@ -256,12 +309,26 @@ void MainThreadRun(void* arg) {
     phasecalibrated = calculate_phase(phasecal, phaseresult);
     // printf("final results (magnitude, phase) : (%6d, %6d)\r\n",
     // magnitude_result[0], phasecalibrated );
-    pressure = 0; // TODO
-    print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated);
+    pressure = 0;  // TODO
+    print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
+                                 q_size);
     nummeasurements++;
   }
-  
-  FAIL("MainThread exited.");
+}
+
+packed32_t pend_dft_results;
+
+static void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg) {
+  OSIntEnter();
+  printf("interrupt\n");
+
+  pend_dft_results.parts.magnitude = pADI_AFE->AFE_DFT_RESULT_REAL;
+  pend_dft_results.parts.phase = pADI_AFE->AFE_DFT_RESULT_IMAG;
+  if (OS_ERR_NONE != OSQPost(dft_queue, *((void **)&pend_dft_results))) {
+    FAIL("AFE_DFT_Callback: OSQPost");
+  }
+
+  OSIntExit();
 }
 
 /* Arctan Implementation */
@@ -460,23 +527,34 @@ void sprintf_fixed32(char *out, fixed32_t in) {
   }
 }
 
-/* Helper function for printing fixed32_t (magnitude & phase) and uint15_t (pressure) results */
-void print_PressureMagnitudePhase(char *text, uint16_t pressure, fixed32_t magnitude, fixed32_t phase) {
+/* Helper function for printing fixed32_t (magnitude & phase) and uint15_t
+ * (pressure) results */
+void print_PressureMagnitudePhase(char *text, uint16_t pressure,
+                                  fixed32_t magnitude, fixed32_t phase,
+                                  int queue_size) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
   sprintf(msg, "%s", text);
   // sprintf(msg, "    %s = (", text);
-  /* Magnitude */
+
+  // Pressure
   sprintf(tmp, "%d", pressure);
   strcat(msg, tmp);
-  
+
+  // Magnitude
   sprintf_fixed32(tmp, magnitude);
   strcat(msg, tmp);
   // strcat(msg, ", ");
-  /* Phase */
+
+  // Phase
   sprintf_fixed32(tmp, phase);
   strcat(msg, tmp);
   // strcat(msg, ")\r\n");
+
+  // Queue size
+  sprintf(tmp, " (%d/%d)", queue_size, DFT_QUEUE_SIZE);
+  strcat(msg, tmp);
+
   strcat(msg, "\r\n");
   PRINT(msg);
 }
@@ -505,7 +583,9 @@ void test_print(char *pBuffer) {
   int16_t size;
   /* Print to UART */
   size = strlen(pBuffer);
-  adi_UART_BufTx(hUartDevice, pBuffer, &size);
+  if (ADI_UART_SUCCESS != adi_UART_BufTx(hUartDevice, pBuffer, &size)) {
+    FAIL("test_print: ADI_UART_SUCCESS");
+  }
 
 #elif (0 == USE_UART_FOR_DATA)
   /* Print  to console */
@@ -554,7 +634,6 @@ ADI_UART_RESULT_TYPE uart_UnInit(void) {
 
   return result;
 }
-
 
 void rtc_Init(void) {
   /* callbacks */
