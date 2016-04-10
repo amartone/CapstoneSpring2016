@@ -30,7 +30,7 @@
 
                                        /* ---------------------- MISCELLANEOUS ----------------------- */
 #define OS_APP_HOOKS_EN           1u   /* Application-defined hooks are called from the uC/OS-II hooks */
-#define OS_ARG_CHK_EN             0u   /* Enable (1) or Disable (0) argument checking                  */
+#define OS_ARG_CHK_EN             1u   /* Enable (1) or Disable (0) argument checking                  */
 #define OS_CPU_HOOKS_EN           1u   /* uC/OS-II hooks are found in the processor port files         */
 
 #define OS_DEBUG_EN               0u   /* Enable(1) debug variables                                    */
@@ -50,7 +50,7 @@
 #define OS_SCHED_LOCK_EN          1u   /* Include code for OSSchedLock() and OSSchedUnlock()           */
 
 #define OS_TICK_STEP_EN           1u   /* Enable tick stepping feature for uC/OS-View                  */
-#define OS_TICKS_PER_SEC       1000u   /* Set the number of ticks in one second                        */
+#define OS_TICKS_PER_SEC        100u   /* Set the number of ticks in one second                        */
 
 
                                        /* --------------------- TASK STACK SIZE ---------------------- */
