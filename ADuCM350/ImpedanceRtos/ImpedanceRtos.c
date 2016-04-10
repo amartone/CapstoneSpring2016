@@ -31,6 +31,7 @@ int main(void) {
     return 1;
   }
 
+  SysTick_Config(M3_FREQ / SYSTICKS_PER_SECOND);
   OSStart();
 
   /* Should never get here. */
