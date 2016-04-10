@@ -136,7 +136,7 @@
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibThreads</name>
@@ -1992,9 +1992,6 @@
       <name>$PROJ_DIR$\..\PumpThread.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\TransmitDataThread.c</name>
     </file>
     <file>
@@ -2011,6 +2008,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\afe.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\afe_lib.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\beep.c</name>
@@ -2119,6 +2119,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\system.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\test_common.c</name>
     </file>
   </group>
   <group>
