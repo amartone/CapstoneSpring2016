@@ -22,7 +22,6 @@
 uint8_t i2c_tx[I2C_BUFFER_SIZE];
 uint8_t i2c_rx[I2C_BUFFER_SIZE];
 
-
 void PumpThreadRun(void* arg) {
   // TODO
 }
