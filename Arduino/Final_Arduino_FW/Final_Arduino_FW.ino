@@ -22,7 +22,7 @@ const int kPressureReleaseBuffer = 10;
 const unsigned char kResponsePressureAvailable = (unsigned char) 0x24;
 const unsigned char kRequestSetTargetPressure = (unsigned char) 0x42;
 
-void receivePressure(int pending_target_pressure){
+void receivePressure(int numBytes){
   // Receive target pressure from aducm 350
   Wire.read(); // Eat the 0 value (the data "address", perhaps).
   unsigned char command = (unsigned char) Wire.read();
