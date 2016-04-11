@@ -15,7 +15,10 @@ const int kTransducerPin = A3;
 unsigned int pending_target_pressure = 0;
 unsigned int target_pressure = 0;
 unsigned int actual_pressure = 0;
+bool pressure_changed = false;
 unsigned char send_actual_pressure[3];
+
+const int kPressureReleaseBuffer = 10;
 const unsigned char kResponsePressureAvailable = (unsigned char) 0x24;
 const unsigned char kRequestSetTargetPressure = (unsigned char) 0x42;
 
@@ -77,39 +80,47 @@ void setup() {
   pinMode(kSolenoidValvePin, OUTPUT);
   // Solenoid Set to Open (opens valve).
   digitalWrite(kSolenoidValvePin, LOW);
+  
+  // Read initial actual pressure from Transducer.
+  actual_pressure = analogRead(kTransducerPin);
 
   Serial.println("Ready");
 }
 
 void loop() {
-  
-  // Read actual pressure from Transducer.
-  actual_pressure = analogRead(kTransducerPin);
-
   // Set a target pressure from pending valve
   // received from aducm350.
+  pressure_changed = target_pressure != pending_target_pressure;
+  if (!pressure_changed) {
+    return;
+  }
+
   target_pressure = pending_target_pressure;
-  
+
   // Control loop to set the actual pressure to target pressure.
   if (actual_pressure < target_pressure) {
     // Motor on, solenoid on.
     // Disengage brake for motor (motor starts).
     digitalWrite(kMotorBrakePin, LOW);
     // Turn on solenoid (shuts valve). 
-    digitalWrite(kSolenoidValvePin, HIGH); 
-  } 
-  else if (actual_pressure >= target_pressure && actual_pressure < target_pressure + 10){
-    // Motor off, solenoid on.
+    digitalWrite(kSolenoidValvePin, HIGH);
+
+    while (actual_pressure < target_pressure) {
+      // Wait for the motor to inflate the cuff...
+      actual_pressure = analogRead(kTransducerPin);
+    }
+
     // Engage brake for motor (motor stops).
     digitalWrite(kMotorBrakePin, HIGH);
-    //Turn on solenoid (shuts valve). 
+
+  } else if (actual_pressure > target_pressure + kPressureReleaseBuffer) {
+    // Turn off solenoid (open valve). 
     digitalWrite(kSolenoidValvePin, HIGH); 
-  }
-  else { 
-    // Motor off, solenoid off.
-    // engage brake for motor (motor stops).
-    digitalWrite(kMotorBrakePin, HIGH); 
-    // turn off solenoid (opens valve).
-    digitalWrite(kSolenoidValvePin, LOW);
+    while (actual_pressure > target_pressure + kPressureReleaseBuffer) {
+      // Wait for the cuff to drop down to the target pressure...
+      actual_pressure = analogRead(kTransducerPin);
+    }
+    // Turn on solenoid (close valve). 
+    digitalWrite(kSolenoidValvePin, HIGH); 
   }
 }
