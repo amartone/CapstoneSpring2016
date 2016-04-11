@@ -8,7 +8,7 @@ module.exports = function(mongoose) {
         userId: String,
         diastolic: String,
         systolic: String,
-        impedance: sample
+        impedance: [samples]
         // collection property sets
         // collection name to 'user'
     }, {collection: 'capstone.bp'});

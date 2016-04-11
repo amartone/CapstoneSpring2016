@@ -8,13 +8,19 @@
 
     function bpService($http, $rootScope) {
         var api = {
-            findAllBpForUser: findAllBpForUser
+            findAllBpForUser: findAllBpForUser,
+            getSampleDataForUser: getSampleDataForUser
+
         };
 
         return api;
 
         function findAllBpForUser(userId){
             return $http.get("/api/capstone/user/" + userId + "/bp");
+        }
+
+        function getSampleDataForUser(userId){
+            return $http.get("/api/capstone/user/" + userId + "/sampledata");
         }
 
     }
