@@ -560,7 +560,7 @@ void print_PressureMagnitudePhase(char *text, uint16_t pressure,
                                   int queue_size) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
-  sprintf(msg, "%s: %d %d (%d/%d)\r\n", text, pressure, magnitude, phase,
+  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude, phase,
           queue_size, DFT_QUEUE_SIZE);
 
   PRINT(msg);

@@ -3,22 +3,25 @@
 #define HIGH_PRESSURE 159
 #define LOW_PRESSURE 0
 #define INTERVAL 3
-#define INTERVAL_MS 1000
-#define DELAY_TO_GET_TO_HIGH_MS 10000
+#define INTERVAL_DELAY_S 1
+#define DELAY_TO_GET_TO_HIGH_S 10
 
-#define MMHG_TO_TRANSDUCER(x) ((uint16_t) (2.4728x + 36.989 * x))
+uint16_t mmhg_to_transducer(int32_t pressure) {
+  // Cortex M3 has no hardware FP (?), so use an approximation instead.
+  // return (uint16_t) (2.4728 * pressure + 36.989);
+  return (uint16_t) (pressure * 591 / 239 + 37);
+}
 
 uint8_t i2c_tx[I2C_BUFFER_SIZE];
 
 uint16_t targetValue;
 ADI_I2C_RESULT_TYPE i2cResult;
 
-void SetTargetPressure(uint16_t targetPressure) {
-  printf("Setting target pressure to %d mmHg...\n", targetPressure);
-  //targetValue = MMHG_TO_TRANSDUCER(targetPressure);
+void SetTargetPressure(int32_t targetPressure) {
+  targetValue = mmhg_to_transducer(targetPressure);
   i2c_tx[0] = READ_PRESSURE_COMMAND;
-  i2c_tx[1] = targetPressure & 0xFFu;
-  i2c_tx[2] = (targetPressure >> 8) & 0x3u;
+  i2c_tx[1] = targetValue & 0xFFu;
+  i2c_tx[2] = (targetValue >> 8) & 0x3u;
   i2cResult = adi_I2C_MasterTransmit(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_tx,
                                      3, false);
@@ -28,26 +31,31 @@ void SetTargetPressure(uint16_t targetPressure) {
 }
 
 void PumpThreadRun(void* arg) {
-  // Wait for the configuration to finish.
-  OSMutexPost(i2c_mutex);
+  uint8_t err;
 
-  int16_t targetMmhg;
+  // Wait for the configuration to finish.
+  OSMutexPend(i2c_mutex, 0, &err);
+  if (err) {
+    FAIL("OSMutexPend PumpThread");
+  }
+
+  int32_t targetMmhg;
   while (true) {
     // Wait two seconds to collect just some data.
     OSTimeDlyHMSM(0, 0, 2, 0);
-    
+
     // Set the target pressure to the high pressure and sleep a bit.
     targetMmhg = HIGH_PRESSURE;
     SetTargetPressure(targetMmhg);
-    OSTimeDlyHMSM(0, 0, 0, DELAY_TO_GET_TO_HIGH_MS);
+    OSTimeDlyHMSM(0, 0, DELAY_TO_GET_TO_HIGH_S, 0);
     
-    for (targetMmhg = HIGH_PRESSURE; targetMmhg >= LOW_PRESSURE;
+    for (targetMmhg = HIGH_PRESSURE - INTERVAL; targetMmhg >= LOW_PRESSURE;
          targetMmhg -= INTERVAL) {
       // Set the target pressure to be a bit lower.
       SetTargetPressure(targetMmhg);
 
       // Wait some time for the pressure to decrease.
-      OSTimeDlyHMSM(0, 0, 0, INTERVAL_MS);
+      OSTimeDlyHMSM(0, 0, INTERVAL_DELAY_S, 0);
     }
   }
 }

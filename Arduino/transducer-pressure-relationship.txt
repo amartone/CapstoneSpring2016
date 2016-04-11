@@ -11,6 +11,6 @@ mm Hg     -    value
 160 - 434
 
 
-(kTransducerValue) = 2.4728x + 36.989 (pressure_in_mmHg)
+(kTransducerValue) = 2.4728 (pressure_in_mmHg) + 36.989
 
 pressure_in_mmHg = 0.4042 (kTransducerValue) - 14.913

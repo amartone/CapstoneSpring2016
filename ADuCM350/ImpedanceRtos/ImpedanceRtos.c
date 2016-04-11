@@ -1,6 +1,7 @@
 #include "ImpedanceRtos.h"
 
 OS_STK g_TaskMainStack[TASK_MAIN_STK_SIZE];
+OS_STK g_TaskPumpStack[TASK_PUMP_STK_SIZE];
 OS_STK g_TaskUxStack[TASK_UX_STK_SIZE];
 
 OS_EVENT *i2c_mutex;
@@ -21,7 +22,7 @@ int main(void) {
   adi_initpinmux();
 
   OSInit();
-  
+
   // Create a semaphore indicating that I2C is initialized.
   i2c_mutex = OSMutexCreate(1, &OSRetVal);
   if (OSRetVal != OS_ERR_NONE) {
@@ -38,7 +39,7 @@ int main(void) {
   
   // Create the thread in charge of updating the pump.
   OSRetVal = OSTaskCreate(PumpThreadRun, NULL,
-                          (OS_STK*)&g_TaskMainStack[TASK_PUMP_STK_SIZE - 1],
+                          (OS_STK*)&g_TaskPumpStack[TASK_PUMP_STK_SIZE - 1],
                           TASK_PUMP_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the pump thread.\n");
@@ -49,8 +50,7 @@ int main(void) {
       OSTaskCreate(UX_Task, NULL, (OS_STK*)&g_TaskUxStack[TASK_UX_STK_SIZE - 1],
                    TASK_UX_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
-    FAIL("Error creating the blink thread.\n");
-    return 1;
+    FAIL("Error creating the UX thread.\n");
   }
 
   SysTick_Config(M3_FREQ / SYSTICKS_PER_SECOND);

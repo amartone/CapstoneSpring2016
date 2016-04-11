@@ -48,14 +48,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define M3_FREQ 16000000
-#define SYSTICKS_PER_SECOND 100
+#define SYSTICKS_PER_SECOND 1000
 
-#define TASK_MAIN_STK_SIZE 2048u
+#define TASK_MAIN_STK_SIZE 1024u
 #define TASK_MAIN_PRIO 5
 #define TASK_PUMP_STK_SIZE 128u
 #define TASK_PUMP_PRIO 6
 #define TASK_UX_STK_SIZE 128u
-#define TASK_UX_PRIO 10
+#define TASK_UX_PRIO 8
 
 extern ADI_I2C_DEV_HANDLE i2cDevice;
 extern OS_EVENT *i2c_mutex;
