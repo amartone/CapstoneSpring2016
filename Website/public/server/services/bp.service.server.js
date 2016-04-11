@@ -4,6 +4,7 @@
 module.exports = function (app, bpModel) {
 
     app.get("/api/capstone/user/:userId/bp", getAllBpForUser);
+    app.get("/api/capstone/user/:userId/sampledata", getSampleDataForUser);
 
     app.post("/api/capstone/bp/", importIntoMongo);
 
@@ -38,6 +39,24 @@ module.exports = function (app, bpModel) {
                     res.status(400).send(err);
                 }
             )
+
+
+    }
+
+    function getSampleDataForUser(req, res){
+        var userId = req.params.userId;
+
+        bpModel.getSampleDataForUser(userId)
+            .then(
+                function(doc){
+                    res.json(doc);
+                },
+
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+
 
 
     }

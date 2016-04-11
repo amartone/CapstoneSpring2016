@@ -15,7 +15,8 @@ module.exports = function (db, mongoose) {
 
     var api = {
         findBpByUserId: findBpByUserId,
-        importIntoMongo: importIntoMongo
+        importIntoMongo: importIntoMongo,
+        getSampleDataForUser: getSampleDataForUser
     };
     return api;
 
@@ -48,5 +49,23 @@ module.exports = function (db, mongoose) {
         });
         return deferred.promise;
     }
+
+    function getSampleDataForUser(userId){
+      var deferred = q.defer();
+
+      // find one retrieves one document
+      SampleModel.find({userId: userId}, function (err, doc) {
+          if (err) {
+              deferred.reject(err);
+          } else {
+              console.log("Found:" + doc)
+              deferred.resolve(doc);
+          }
+      });
+      return deferred.promise;
+      }
+
+
+
 
 };
