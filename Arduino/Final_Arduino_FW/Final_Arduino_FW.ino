@@ -55,7 +55,7 @@ void setup() {
   // Configure Pump Brake on
   digitalWrite(kMotorBrakePin, HIGH);
   // Configure Pump Speed
-  analogWrite(kMotorSpeedPin, 75);
+  analogWrite(kMotorSpeedPin, 100);
 
   // Solenoid Valve Configurations.
   pinMode(kSolenoidValvePin, OUTPUT);
