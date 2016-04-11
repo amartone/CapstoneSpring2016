@@ -12,7 +12,7 @@ const int kSolenoidValvePin = 7;
 const int kTransducerPin = A3;
 
 // initialize Pressure variables
-int pending_target_pressure = 300;
+int pending_target_pressure = 0;
 int target_pressure = 0;
 int actual_pressure = 0;
 unsigned char send_actual_pressure[3];
