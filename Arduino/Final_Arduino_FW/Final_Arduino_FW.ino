@@ -12,24 +12,26 @@ const int kSolenoidValvePin = 7;
 const int kTransducerPin = A3;
 
 // initialize Pressure variables
-int pending_target_pressure = 0;
-int target_pressure = 0;
-int actual_pressure = 0;
+unsigned int pending_target_pressure = 0;
+unsigned int target_pressure = 0;
+unsigned int actual_pressure = 0;
 unsigned char send_actual_pressure[3];
-const char kResponsePressureAvailable = (char) 0x24;
-const char kRequestSetTargetPressure = (char) 0x42;
+const unsigned char kResponsePressureAvailable = (unsigned char) 0x24;
+const unsigned char kRequestSetTargetPressure = (unsigned char) 0x42;
 
 void receivePressure(int pending_target_pressure){
   // Receive target pressure from aducm 350
-  char command = Wire.read();
+  Wire.read(); // Eat the 0 value (the data "address", perhaps).
+  unsigned char command = (unsigned char) Wire.read();
   if (command == kRequestSetTargetPressure) {
-    unsigned int c1 = Wire.read();
-    unsigned int c2 = Wire.read();
-    pending_target_pressure = c1 | (c2 >> 8);
+    unsigned int c1 = (unsigned int) Wire.read();
+    unsigned int c2 = (unsigned int) Wire.read();
+    pending_target_pressure = c1 | (c2 << 8);
     Serial.print("Setting target to ");
     Serial.println(pending_target_pressure);
   } else {
-    Serial.println("Unknown command!");
+    Serial.println("Unknown command: ");
+    Serial.println(command);
     while (Wire.available()) {
       Wire.read();
     }
@@ -110,5 +112,4 @@ void loop() {
     // turn off solenoid (opens valve).
     digitalWrite(kSolenoidValvePin, LOW);
   }
-
 }
