@@ -94,6 +94,7 @@ void Ext_Int8_Callback(void *pCBParam, uint32_t Event, void *pArg);
 void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg);
 
 ADI_UART_HANDLE hUartDevice = NULL;
+ADI_I2C_DEV_HANDLE i2cDevice = NULL;
 
 /* Function prototypes */
 q15_t arctan(q15_t imag, q15_t real);
@@ -102,7 +103,6 @@ fixed32_t calculate_phase(q15_t phase_rcal, q15_t phase_z);
 void convert_dft_results(int16_t *dft_results, q15_t *dft_results_q15,
                          q31_t *dft_results_q31);
 void sprintf_fixed32(char *out, fixed32_t in);
-void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase);
 void print_PressureMagnitudePhase(char *text, uint16_t pressure,
                                   fixed32_t magnitude, fixed32_t phase,
                                   int queue_size);
@@ -151,6 +151,8 @@ uint8_t done;
 OS_EVENT *dft_queue;
 void *dft_queue_msg[DFT_QUEUE_SIZE];
 
+uint8_t i2c_rx[I2C_BUFFER_SIZE];
+
 void MainThreadRun(void *arg) {
   ADI_AFE_DEV_HANDLE hDevice;
   int16_t dft_results[DFT_RESULTS_COUNT];
@@ -161,11 +163,19 @@ void MainThreadRun(void *arg) {
   fixed32_t magnitude_result[DFT_RESULTS_COUNT / 2 - 1];
   fixed32_t phase_result[DFT_RESULTS_COUNT / 2 - 1];
   char msg[MSG_MAXLEN];
+  uint8_t err;
   int8_t i;
   done = 0;
   uint16_t pressure;
   nummeasurements = 0;
   uint32_t rtcCount;
+  ADI_I2C_RESULT_TYPE i2cResult;
+  
+  // Acquire the I2C configuration mutex.
+  OSMutexPend(i2c_mutex, 0, &err);
+  if (err) {
+    FAIL("OSMutexPend MainThread");
+  }
 
   // Initialize driver.
   rtc_Init();
@@ -178,6 +188,9 @@ void MainThreadRun(void *arg) {
     FAIL("ADI_UART_SUCCESS");
   }
 
+  // Initialize I2C.
+  i2c_Init(&i2cDevice);
+  
   // Initialize flags.
   bRtcAlarmFlag = bRtcInterrupt = bWdtInterrupt = false;
 
@@ -252,6 +265,8 @@ void MainThreadRun(void *arg) {
 
   // Create the message queue for communicating between the ISR and this task.
   dft_queue = OSQCreate(&dft_queue_msg[0], DFT_QUEUE_SIZE);
+  
+  OSMutexPost(i2c_mutex);
 
   // Hook into the DFT interrupt.
   if (ADI_AFE_SUCCESS !=
@@ -274,7 +289,6 @@ void MainThreadRun(void *arg) {
   }
 
   packed32_t q_result;
-  uint8_t err;
   void *q_result_void;
   OS_Q_DATA q_data;
   uint16_t q_size;
@@ -287,6 +301,20 @@ void MainThreadRun(void *arg) {
     }
     OSQQuery(dft_queue, &q_data);
     q_size = q_data.OSNMsgs;
+    
+    // Right after we get this data, get the transducer value from the Arduino.
+    i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_rx,
+                                      3, false);
+    if (i2cResult != ADI_I2C_SUCCESS) {
+      FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
+    }
+
+    if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
+      pressure = i2c_rx[1] | (i2c_rx[2] << 8);
+    } else {
+      FAIL("Corrupted or unexpected data from Arduino.");
+    }
 
     // Convert DFT results to 1.15 and 1.31 formats.
     dft_results[0] = q_result.parts.magnitude;
@@ -309,7 +337,6 @@ void MainThreadRun(void *arg) {
     phasecalibrated = calculate_phase(phasecal, phaseresult);
     // printf("final results (magnitude, phase) : (%6d, %6d)\r\n",
     // magnitude_result[0], phasecalibrated );
-    pressure = 0;  // TODO
     print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
                                  q_size);
     nummeasurements++;
@@ -320,7 +347,6 @@ packed32_t pend_dft_results;
 
 static void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg) {
   OSIntEnter();
-  printf("interrupt\n");
 
   pend_dft_results.parts.magnitude = pADI_AFE->AFE_DFT_RESULT_REAL;
   pend_dft_results.parts.phase = pADI_AFE->AFE_DFT_RESULT_IMAG;
@@ -596,6 +622,30 @@ ADI_UART_RESULT_TYPE uart_UnInit(void) {
   }
 
   return result;
+}
+
+void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice) {
+  /* Take HCLK/PCLK down to 1MHz for better power utilization */
+  /* Need to set PCLK frequency first, because HCLK frequency */
+  /* needs to be greater than or equal to the PCLK frequency  */
+  /* at all times.                                            */
+  // SetSystemClockDivider(ADI_SYS_CLOCK_PCLK, 16);
+  // SetSystemClockDivider(ADI_SYS_CLOCK_CORE, 16);
+
+  // Initialize I2C driver.
+  if (ADI_I2C_SUCCESS != adi_I2C_MasterInit(ADI_I2C_DEVID_0, i2cDevice)) {
+    FAIL("adi_I2C_MasterInit");
+  }
+
+  // Select serial bit rate (~100 kHz max).
+  if (ADI_I2C_SUCCESS != adi_I2C_SetMasterClock(*i2cDevice, I2C_MASTER_CLOCK)) {
+    FAIL("adi_I2C_SetMasterClock");
+  }
+
+  // Disable blocking mode... i.e., poll for completion.
+  //if (ADI_I2C_SUCCESS != adi_I2C_SetBlockingMode(*i2cDevice, false)) {
+  //  FAIL("adi_I2C_SetBlockingMode");
+  //}
 }
 
 void rtc_Init(void) {
