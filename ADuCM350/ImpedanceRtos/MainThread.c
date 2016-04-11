@@ -528,52 +528,15 @@ void sprintf_fixed32(char *out, fixed32_t in) {
 }
 
 /* Helper function for printing fixed32_t (magnitude & phase) and uint15_t
- * (pressure) results */
+ * (pressure) results. */
 void print_PressureMagnitudePhase(char *text, uint16_t pressure,
                                   fixed32_t magnitude, fixed32_t phase,
                                   int queue_size) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
-  sprintf(msg, "%s", text);
-  // sprintf(msg, "    %s = (", text);
+  sprintf(msg, "%s: %d %d (%d/%d)\r\n", text, pressure, magnitude, phase,
+          queue_size, DFT_QUEUE_SIZE);
 
-  // Pressure
-  sprintf(tmp, "%d", pressure);
-  strcat(msg, tmp);
-
-  // Magnitude
-  sprintf_fixed32(tmp, magnitude);
-  strcat(msg, tmp);
-  // strcat(msg, ", ");
-
-  // Phase
-  sprintf_fixed32(tmp, phase);
-  strcat(msg, tmp);
-  // strcat(msg, ")\r\n");
-
-  // Queue size
-  sprintf(tmp, " (%d/%d)", queue_size, DFT_QUEUE_SIZE);
-  strcat(msg, tmp);
-
-  strcat(msg, "\r\n");
-  PRINT(msg);
-}
-
-/* Helper function for printing fixed32_t (magnitude & phase) and results */
-void print_MagnitudePhase(char *text, fixed32_t magnitude, fixed32_t phase) {
-  char msg[MSG_MAXLEN];
-  char tmp[MSG_MAXLEN];
-  sprintf(msg, "%s", text);
-  // sprintf(msg, "    %s = (", text);
-  /* Magnitude */
-  sprintf_fixed32(tmp, magnitude);
-  strcat(msg, tmp);
-  // strcat(msg, ", ");
-  /* Phase */
-  // sprintf_fixed32(tmp, phase);
-  //    strcat(msg, tmp);
-  // strcat(msg, ")\r\n");
-  strcat(msg, "\r\n");
   PRINT(msg);
 }
 
