@@ -27,12 +27,12 @@ void receivePressure(int pending_target_pressure){
 
 void sendPressure() {
   // Send actual pressure as a response to the aducm 350
-
+  int val = analogRead(kTransducerPin);
   // Structure actual pressure data to appropriate bytes
   //to send over the i2c bus
   send_actual_pressure[0] = kResponsePressureAvailable;
-  send_actual_pressure[1] = (unsigned char) actual_pressure;
-  send_actual_pressure[2] = (unsigned char) (actual_pressure >> 8);
+  send_actual_pressure[1] = (unsigned char) val;
+  send_actual_pressure[2] = (unsigned char) (val >> 8);
   
   // Send structured actual pressure to the aducm 350
   Wire.write(send_actual_pressure, 3);
