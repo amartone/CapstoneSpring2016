@@ -16,6 +16,7 @@ int pending_target_pressure = 300;
 int target_pressure = 0;
 int actual_pressure = 0;
 unsigned char send_actual_pressure[3];
+const char kResponsePressureAvailable = (char) 0x24;
 
 void receivePressure(int pending_target_pressure){
   // Receive target pressure from aducm 350
@@ -29,7 +30,7 @@ void sendPressure() {
 
   // Structure actual pressure data to appropriate bytes
   //to send over the i2c bus
-  send_actual_pressure[0] = 
+  send_actual_pressure[0] = kResponsePressureAvailable;
   send_actual_pressure[1] = (unsigned char) actual_pressure;
   send_actual_pressure[2] = (unsigned char) (actual_pressure >> 8);
   
