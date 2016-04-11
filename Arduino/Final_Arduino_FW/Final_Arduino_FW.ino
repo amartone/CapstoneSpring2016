@@ -17,17 +17,29 @@ int target_pressure = 0;
 int actual_pressure = 0;
 unsigned char send_actual_pressure[3];
 const char kResponsePressureAvailable = (char) 0x24;
+const char kRequestSetTargetPressure = (char) 0x42;
 
 void receivePressure(int pending_target_pressure){
   // Receive target pressure from aducm 350
-  if (Wire.available()){
-    pending_target_pressure = (int) Wire.read();
+  char command = Wire.read();
+  if (command == kRequestSetTargetPressure) {
+    unsigned int c1 = Wire.read();
+    unsigned int c2 = Wire.read();
+    pending_target_pressure = c1 | (c2 >> 8);
+    Serial.print("Setting target to ");
+    Serial.println(pending_target_pressure);
+  } else {
+    Serial.println("Unknown command!");
+    while (Wire.available()) {
+      Wire.read();
+    }
   }
 }
 
 void sendPressure() {
   // Send actual pressure as a response to the aducm 350
   int val = analogRead(kTransducerPin);
+
   // Structure actual pressure data to appropriate bytes
   //to send over the i2c bus
   send_actual_pressure[0] = kResponsePressureAvailable;
@@ -42,6 +54,8 @@ void sendPressure() {
 
 void setup() {
 
+  Serial.begin(9600);
+
   // i2c Configurations
   Wire.begin(0x77);
   Wire.onReceive(receivePressure);
@@ -55,14 +69,15 @@ void setup() {
   // Configure Pump Brake on
   digitalWrite(kMotorBrakePin, HIGH);
   // Configure Pump Speed
-  analogWrite(kMotorSpeedPin, 100);
+  analogWrite(kMotorSpeedPin, 75);
 
   // Solenoid Valve Configurations.
   pinMode(kSolenoidValvePin, OUTPUT);
   // Solenoid Set to Open (opens valve).
   digitalWrite(kSolenoidValvePin, LOW);
 
-  }
+  Serial.println("Ready");
+}
 
 void loop() {
   
