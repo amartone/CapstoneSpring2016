@@ -1980,7 +1980,7 @@
       <name>$PROJ_DIR$\..\lib_cfg.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\MainThread.c</name>
+      <name>$PROJ_DIR$\..\MainTask.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\os_cfg.h</name>
@@ -1989,10 +1989,7 @@
       <name>$PROJ_DIR$\..\PinMux.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\PumpThread.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\TransmitDataThread.c</name>
+      <name>$PROJ_DIR$\..\PumpTask.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\UX.c</name>

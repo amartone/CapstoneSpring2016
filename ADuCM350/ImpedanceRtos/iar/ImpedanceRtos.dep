@@ -13,8 +13,8 @@
       <file>$PROJ_DIR$\..\..\Eval-ADUCM350EBZ\src\afe.c</file>
       <file>$PROJ_DIR$\..\ImpedanceRtos.c</file>
       <file>$PROJ_DIR$\..\includes.h</file>
-      <file>$PROJ_DIR$\..\MainThread.c</file>
-      <file>$PROJ_DIR$\..\PumpThread.c</file>
+      <file>$PROJ_DIR$\..\MainTask.c</file>
+      <file>$PROJ_DIR$\..\PumpTask.c</file>
       <file>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium\Software\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</file>
       <file>$PROJ_DIR$\..\ImpedanceRtos.h</file>
       <file>$PROJ_DIR$\..\os_cfg.h</file>

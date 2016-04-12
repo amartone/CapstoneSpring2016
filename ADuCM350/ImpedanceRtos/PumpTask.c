@@ -35,27 +35,27 @@ void SetTargetPressure(int32_t targetPressure) {
   }
 }
 
-void PumpThreadRun(void* arg) {
+void PumpTask(void* arg) {
   uint8_t err;
 
   while (true) {
     // Suspend this task, as it will be resumed by the main one.
-    printf("PumpThread: suspending to wait for main task.\n");
+    printf("PumpTask: suspending to wait for main task.\n");
     err = OSTaskSuspend(OS_PRIO_SELF);
     if (err != OS_ERR_NONE) {
       FAIL("OSTaskResume: OSTaskSuspend (1)");
     }
 
     // Set the target pressure to the high pressure.
-    printf("PumpThread: inflating to %d.\n", HIGH_PRESSURE);
+    printf("PumpTask: inflating to %d.\n", HIGH_PRESSURE);
     SetTargetPressure(HIGH_PRESSURE);
     
     // Wait until the Arduino pumps all the way up.
     while (true) {
-      printf("PumpThread: checking transducer value via I2C...\n");
+      printf("PumpTask: checking transducer value via I2C...\n");
       err = OSTimeDlyHMSM(0, 0, 1, 0);
       if (err != OS_ERR_NONE) {
-        FAIL("OSTimeDlyHMSM: PumpThreadRun (3)");
+        FAIL("OSTimeDlyHMSM: PumpTaskRun (3)");
       }
 
       i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
@@ -69,7 +69,7 @@ void PumpThreadRun(void* arg) {
       if (i2c_pump_rx[0] == ARDUINO_STILL_INFLATING) {
         continue;
       } else if (i2c_pump_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
-        printf("PumpThread: Arduino has finished inflating.\n");
+        printf("PumpTask: Arduino has finished inflating.\n");
         break;
       } else {
         FAIL("adi_I2C_MasterReceive: unknown result");
@@ -77,36 +77,36 @@ void PumpThreadRun(void* arg) {
     }
     
     // Resume the main task.
-    printf("PumpThread: resuming main task.\n");
+    printf("PumpTask: resuming main task.\n");
     err = OSTaskResume(TASK_MAIN_PRIO);
     if (err != OS_ERR_NONE) {
-      FAIL("OSTaskResume: PumpThreadRun");
+      FAIL("OSTaskResume: PumpTaskRun");
     }
     
     // Suspend this task until the main task finishes measuring. At that point,
-    // the main task will resume this thread (and suspend itself) so that we
+    // the main task will resume this task (and suspend itself) so that we
     // can fully deflate the cuff.
-    printf("PumpThread: suspending self.\n");
+    printf("PumpTask: suspending self.\n");
     err = OSTaskSuspend(OS_PRIO_SELF);
     if (err != OS_ERR_NONE) {
       FAIL("OSTaskResume: OSTaskSuspend (2)");
     }
 
     // Once we reach the low value, send "0" to the Arduino to deflate the cuff.
-    printf("PumpThread: fully deflating cuff.\n");
+    printf("PumpTask: fully deflating cuff.\n");
     SetTargetPressure(0);
 
     // Wait a couple seconds for the cuff to deflate.
-    printf("PumpThread: waiting a few seconds for the cuff to deflate.\n");
+    printf("PumpTask: waiting a few seconds for the cuff to deflate.\n");
     err = OSTimeDlyHMSM(0, 0, CUFF_DEFLATE_DELAY_S, 0);
     if (err != OS_ERR_NONE) {
-      FAIL("OSTimeDlyHMSM: PumpThreadRun (2)");
+      FAIL("OSTimeDlyHMSM: PumpTaskRun (2)");
     }
     
     // Resume the main task and exit.
     err = OSTaskResume(TASK_MAIN_PRIO);
     if (err != OS_ERR_NONE) {
-      FAIL("OSTaskResume: PumpThreadRun");
+      FAIL("OSTaskResume: PumpTaskRun");
     }
   }
 }

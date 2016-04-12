@@ -365,7 +365,7 @@ void MainTaskRun(void *arg) {
       // Calibrate with phase from rcal.
       phasecalibrated = calculate_phase(phasecal, phaseresult);
       
-      // TODO: dispatch to other thread?
+      // TODO: dispatch to another thread?
       printf("MainTask: sending data via UART.\n");;
       print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
                                    q_size);

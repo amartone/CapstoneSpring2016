@@ -36,20 +36,20 @@ int main(void) {
     FAIL("Error creating the button semaphore\n");
   }
 
-  // Create the main thread.
-  OSRetVal = OSTaskCreate(MainTaskRun, NULL,
+  // Create the main task.
+  OSRetVal = OSTaskCreate(MainTask, NULL,
                           (OS_STK*)&g_TaskMainStack[TASK_MAIN_STK_SIZE - 1],
                           TASK_MAIN_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
-    FAIL("Error creating the main thread.\n");
+    FAIL("Error creating the main task.\n");
   }
 
-  // Create the thread in charge of interfacing with the pump.
-  OSRetVal = OSTaskCreate(PumpThreadRun, NULL,
+  // Create the task in charge of interfacing with the pump.
+  OSRetVal = OSTaskCreate(PumpTask, NULL,
                           (OS_STK*)&g_TaskPumpStack[TASK_PUMP_STK_SIZE - 1],
                           TASK_PUMP_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
-    FAIL("Error creating the pump thread.\n");
+    FAIL("Error creating the pump task.\n");
   }
 
   // Create the low-priority UX task.
@@ -57,7 +57,7 @@ int main(void) {
       OSTaskCreate(UX_Task, NULL, (OS_STK*)&g_TaskUxStack[TASK_UX_STK_SIZE - 1],
                    TASK_UX_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
-    FAIL("Error creating the UX thread.\n");
+    FAIL("Error creating the UX task.\n");
   }
 
   SysTick_Config(M3_FREQ / SYSTICKS_PER_SECOND);
