@@ -48,17 +48,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define M3_FREQ 16000000
-#define SYSTICKS_PER_SECOND 1000
+#define SYSTICKS_PER_SECOND 100
 
 #define TASK_MAIN_STK_SIZE 1024u
 #define TASK_MAIN_PRIO 5
-#define TASK_PUMP_STK_SIZE 128u
+#define TASK_PUMP_STK_SIZE 512u
 #define TASK_PUMP_PRIO 6
-#define TASK_UX_STK_SIZE 128u
+#define TASK_UX_STK_SIZE 512u
 #define TASK_UX_PRIO 8
 
 extern ADI_I2C_DEV_HANDLE i2cDevice;
 extern OS_EVENT *i2c_mutex;
+extern OS_EVENT *ux_button_semaphore;
 
 extern int32_t adi_initpinmux(void);
 
@@ -70,6 +71,9 @@ extern int32_t adi_initpinmux(void);
 extern void UX_LCD_Init();
 extern void UX_LCD_ShowMessage(const uint8_t *message);
 extern void UX_Task(void *arg);
+extern void UX_Disengage();
+
+extern volatile bool ux_is_engaged;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pump thread (implemented in PumpThread.c). //////////////////////////////////
@@ -86,13 +90,23 @@ extern void UX_Task(void *arg);
 // Slave address of the Arduino pump module.
 #define I2C_PUMP_SLAVE_ADDRESS 0x77
 
-// Command send to the Arduino to ask for pressure measurement.
-#define READ_PRESSURE_COMMAND (char) 0x42
+// Command send to the Arduino to set the target pressure.
+#define SET_PRESSURE_COMMAND ((unsigned char) 0x42)
+
+// First byte from the Arduino indicating that the cuff is still being inflated.
+#define ARDUINO_STILL_INFLATING ((unsigned char) 0x23)
 
 // First byte from the Arduino indicating that pressure is available.
-#define ARDUINO_PRESSURE_AVAILABLE (char) 0x24
+#define ARDUINO_PRESSURE_AVAILABLE ((unsigned char) 0x24)
+
+// The pressure at which we stop collecting data and fully deflate the cuff.
+#define LOWEST_PRESSURE_THRESHOLD_MMHG 40
 
 extern void PumpThreadRun(void *arg);
+
+extern uint16_t mmhg_to_transducer(uint32_t pressure);
+extern uint32_t transducer_to_mmhg(uint16_t transducer);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Data export thread (implemented in TransmitDataThread.c). ///////////////////
@@ -101,10 +115,11 @@ extern void PumpThreadRun(void *arg);
 extern void TransmitDataThreadRun(void *arg);
 
 ////////////////////////////////////////////////////////////////////////////////
-// Impedance thread (implemented in MainThread.c). /////////////////////////////
+// Impedance thread (implemented in MainTask.c). /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-extern void MainThreadRun(void *arg);
+extern void MainTaskRun(void *arg);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Miscellaneous functions. ////////////////////////////////////////////////////

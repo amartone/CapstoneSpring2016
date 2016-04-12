@@ -4,8 +4,7 @@
 #include "lcd_VIM828.h"
 
 ADI_LCD_DEV_HANDLE hLCD;
-
-void UX_LCD_Callback(void *pCBParam, uint32_t nEvent, void *EventArg);
+volatile bool ux_is_engaged = false;
 
 typedef struct {
   ADI_GPIO_PORT_TYPE Port;
@@ -14,8 +13,48 @@ typedef struct {
 
 uint32_t buffer[1];
 uint32_t length;
-
 PinMap led_DISPLAY = {ADI_GPIO_PORT_0, ADI_GPIO_PIN_11};
+
+void UX_Button_Callback(void *pCBParam, uint32_t Event, void *pArg);
+void UX_LCD_Callback(void *pCBParam, uint32_t nEvent, void *pArg);
+
+// Capture P0.10 pushbutton interrupt.
+void UX_Button_Init() {
+  /* initialize GPIO driver */
+  if (adi_GPIO_Init()) {
+   FAIL("UX_Button_Init failed");
+  }
+
+  // Enable P0.10 input.
+  if (adi_GPIO_SetInputEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, true)) {
+    FAIL("UX_Button_Init: adi_GPIO_SetInputEnable failed");
+  }
+
+  // Disable P0.10 output.
+  if (adi_GPIO_SetOutputEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, false)) {
+    FAIL("UX_Button_Init: adi_GPIO_SetOutputEnable failed");
+  }
+
+  // Set P0.10 pullep enable.
+  if (adi_GPIO_SetPullUpEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, true)) {
+    FAIL("UX_Button_Init: adi_GPIO_SetOutputEnable failed");
+  }
+
+  // Register the external interrupt callback.
+  if(adi_GPIO_RegisterCallback(EINT8_IRQn, UX_Button_Callback, NULL)) {
+    FAIL("UX_Button_Init: adi_GPIO_RegisterCallbackExtInt failed");
+  }
+
+  // Enable P0.10 as external interrupt.
+  if (adi_GPIO_EnableIRQ(EINT8_IRQn,  ADI_GPIO_IRQ_RISING_EDGE)) {
+    FAIL("UX_Button_Init: adi_GPIO_EnableIRQ failed");
+  }
+
+  // Release GPIO driver.
+  if (adi_GPIO_UnInit()) {
+    FAIL("adi_GPIO_Init failed");
+  }
+}
 
 void UX_LCD_Init() {
   bool_t bVLCDState;
@@ -65,8 +104,18 @@ void UX_LCD_Callback(void *pCBParam, uint32_t nEvent, void *EventArg) {
     case ADI_LCD_EVENT_FRAME_BOUNDARY:
       break;
   }
+}
 
-  return;
+void UX_Button_Callback(void *pCBParam, uint32_t nEvent, void *EventArg) {
+  NVIC_ClearPendingIRQ(EINT8_IRQn);
+
+  ux_is_engaged = true;
+  printf("UX: button pressed. Signaling semaphore.\n");
+  OSSemPost(ux_button_semaphore);
+}
+
+void UX_Disengage() {
+  ux_is_engaged = false;
 }
 
 void UX_Task(void *arg) {
@@ -87,6 +136,9 @@ void UX_Task(void *arg) {
       adi_GPIO_SetOutputEnable(led_DISPLAY.Port, led_DISPLAY.Pins, true)) {
     FAIL("adi_GPIO_SetOutputEnable (led_DISPLAY)");
   }
+  
+  // Enable the pushbutton.
+  UX_Button_Init();
 
   while (1) {
     if (++count % 2) {
@@ -100,7 +152,7 @@ void UX_Task(void *arg) {
           adi_GPIO_SetHigh(led_DISPLAY.Port, led_DISPLAY.Pins)) {
         FAIL("adi_GPIO_SetHigh (led_DISPLAY)");
       }
-      OSTimeDlyHMSM(0, 0, 0, 900);
+      OSTimeDlyHMSM(0, 0, 0, ux_is_engaged ? 200 : 1900);
     }
   }
 }

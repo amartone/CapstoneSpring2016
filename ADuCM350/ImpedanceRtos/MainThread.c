@@ -90,7 +90,6 @@ uint32_t BuildSeconds(void);
 void rtcCallback(void *pCBParam, uint32_t Event, void *EventArg);
 void wutCallback(void *pCBParam, uint32_t Event, void *EventArg);
 
-void Ext_Int8_Callback(void *pCBParam, uint32_t Event, void *pArg);
 void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg);
 
 ADI_UART_HANDLE hUartDevice = NULL;
@@ -110,6 +109,7 @@ void test_print(char *pBuffer);
 ADI_UART_RESULT_TYPE uart_Init(void);
 ADI_UART_RESULT_TYPE uart_UnInit(void);
 void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice);
+//void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice);
 
 /* Sequence for AC measurement, performs 4 DFTs:        */
 /*     RCAL, AFE3-AFE4, AFE4-AFE5, AFE3-AFE5            */
@@ -153,7 +153,7 @@ void *dft_queue_msg[DFT_QUEUE_SIZE];
 
 uint8_t i2c_rx[I2C_BUFFER_SIZE];
 
-void MainThreadRun(void *arg) {
+void MainTaskRun(void *arg) {
   ADI_AFE_DEV_HANDLE hDevice;
   int16_t dft_results[DFT_RESULTS_COUNT];
   q15_t dft_results_q15[DFT_RESULTS_COUNT];
@@ -164,18 +164,12 @@ void MainThreadRun(void *arg) {
   fixed32_t phase_result[DFT_RESULTS_COUNT / 2 - 1];
   char msg[MSG_MAXLEN];
   uint8_t err;
-  int8_t i;
   done = 0;
-  uint16_t pressure;
+  uint16_t pressure_analog;
+  uint32_t pressure;
   nummeasurements = 0;
   uint32_t rtcCount;
   ADI_I2C_RESULT_TYPE i2cResult;
-  
-  // Acquire the I2C configuration mutex.
-  OSMutexPend(i2c_mutex, 0, &err);
-  if (err) {
-    FAIL("OSMutexPend MainThread");
-  }
 
   // Initialize driver.
   rtc_Init();
@@ -184,7 +178,7 @@ void MainThreadRun(void *arg) {
   rtc_Calibrate();
 
   // Initialize UART.
-  if (ADI_UART_SUCCESS != uart_Init()) {
+  if (uart_Init()) {
     FAIL("ADI_UART_SUCCESS");
   }
 
@@ -195,7 +189,7 @@ void MainThreadRun(void *arg) {
   bRtcAlarmFlag = bRtcInterrupt = bWdtInterrupt = false;
 
   // Get the current count.
-  if (ADI_RTC_SUCCESS != adi_RTC_GetCount(hRTC, &rtcCount)) {
+  if (adi_RTC_GetCount(hRTC, &rtcCount)) {
     FAIL("adi_RTC_GetCount failed");
   }
 
@@ -265,8 +259,6 @@ void MainThreadRun(void *arg) {
 
   // Create the message queue for communicating between the ISR and this task.
   dft_queue = OSQCreate(&dft_queue_msg[0], DFT_QUEUE_SIZE);
-  
-  OSMutexPost(i2c_mutex);
 
   // Hook into the DFT interrupt.
   if (ADI_AFE_SUCCESS !=
@@ -279,13 +271,7 @@ void MainThreadRun(void *arg) {
       adi_AFE_ClearInterruptSource(
           hDevice, ADI_AFE_INT_GROUP_CAPTURE,
           BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN)) {
-    FAIL("adi_AFE_ClearInterruptSource");
-  }
-  if (ADI_AFE_SUCCESS !=
-      adi_AFE_EnableInterruptSource(
-          hDevice, ADI_AFE_INT_GROUP_CAPTURE,
-          BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN, true)) {
-    FAIL("adi_AFE_EnableInterruptSource");
+    FAIL("adi_AFE_ClearInterruptSource (1)");
   }
 
   packed32_t q_result;
@@ -293,53 +279,125 @@ void MainThreadRun(void *arg) {
   OS_Q_DATA q_data;
   uint16_t q_size;
   while (true) {
-    // Wait on the queue to get DFT data from the ISR.
-    q_result_void = OSQPend(dft_queue, 0, &err);
-    q_result = *((packed32_t *)&q_result_void);
+    // Wait for the user to press the button.
+    printf("MainTask: waiting for button.\n");
+    OSSemPend(ux_button_semaphore, 0, &err);
     if (err != OS_ERR_NONE) {
-      FAIL("OSQPend: dft_queue");
+      FAIL("OSSemPend: MainTask");
     }
-    OSQQuery(dft_queue, &q_data);
-    q_size = q_data.OSNMsgs;
     
-    // Right after we get this data, get the transducer value from the Arduino.
-    i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
-                                      ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH, i2c_rx,
-                                      3, false);
-    if (i2cResult != ADI_I2C_SUCCESS) {
-      FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
+    // Have the pump task inflate the cuff.
+    printf("MainTask: button detected. Resuming pump task.\n");
+    err = OSTaskResume(TASK_PUMP_PRIO);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSTaskResume: MainTask (1)");
+    }
+    
+    // Suspend this task until the pump task finishes inflating.
+    printf("MainTask: suspending self.\n");
+    err = OSTaskSuspend(OS_PRIO_SELF);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSTaskResume: MainTask (1)");
+    }
+    
+    // Enable the DFT interrupt.
+    printf("MainTask: enabling DFT interrupt.\n");
+    if (ADI_AFE_SUCCESS !=
+        adi_AFE_EnableInterruptSource(
+            hDevice, ADI_AFE_INT_GROUP_CAPTURE,
+            BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN, true)) {
+      FAIL("adi_AFE_EnableInterruptSource");
     }
 
-    if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
-      pressure = i2c_rx[1] | (i2c_rx[2] << 8);
-    } else {
-      FAIL("Corrupted or unexpected data from Arduino.");
+    packed32_t pend_dft_results;
+    while (true) {
+      // Wait on the queue to get DFT data from the ISR (~76 Hz).
+      printf("MainTask: pending on DFT queue.\n");
+      q_result_void = OSQPend(dft_queue, 0, &err);
+      q_result = *((packed32_t *)&q_result_void);
+      if (err != OS_ERR_NONE) {
+        FAIL("OSQPend: dft_queue");
+      }
+      OSQQuery(dft_queue, &q_data);
+      q_size = q_data.OSNMsgs;
+    
+      // Right after we get this data, get the transducer's value from the
+      // Arduino.
+      printf("MainTask: getting transducer value via I2C.\n");
+      i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
+                                        ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH,
+                                        i2c_rx, 3, false);
+      if (i2cResult != ADI_I2C_SUCCESS) {
+        FAIL("adi_I2C_MasterReceive: get pressure from Arduino");
+      }
+
+      // Get the analog pressure value from the Arduino.
+      if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
+        pressure_analog = i2c_rx[1] | (i2c_rx[2] << 8);
+      } else {
+        FAIL("Corrupted or unexpected data from Arduino.");
+      }
+      
+      // Convert the analog value to mmHg.
+      pressure = transducer_to_mmhg(pressure_analog);
+      printf("MainTask: got pressure value: %d mmHg.\n", pressure);
+      
+      // If the pressure is below the threshold, we're done; break the loop.
+      if (pressure < LOWEST_PRESSURE_THRESHOLD_MMHG) {
+        break;
+      }
+
+      // Convert DFT results to 1.15 and 1.31 formats.
+      dft_results[0] = q_result.parts.magnitude;
+      dft_results[1] = q_result.parts.phase;
+      convert_dft_results(dft_results, dft_results_q15, dft_results_q31);
+
+      // Compute the magnitude using CMSIS.
+      arm_cmplx_mag_q31(dft_results_q31, magnitude, DFT_RESULTS_COUNT / 2);
+
+      // Calculate final magnitude values, calibrated with RCAL.
+      fixed32_t magnituderesult;
+      magnituderesult = calculate_magnitude(magnitudecal, magnitude[0]);
+      q15_t phaseresult;
+      phaseresult = arctan(dft_results[1], dft_results[0]);
+      fixed32_t phasecalibrated;
+
+      // Calibrate with phase from rcal.
+      phasecalibrated = calculate_phase(phasecal, phaseresult);
+      
+      // TODO: dispatch to other thread?
+      printf("MainTask: sending data via UART.\n");;
+      print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
+                                   q_size);
+      nummeasurements++;
     }
 
-    // Convert DFT results to 1.15 and 1.31 formats.
-    dft_results[0] = q_result.parts.magnitude;
-    dft_results[1] = q_result.parts.phase;
-    convert_dft_results(dft_results, dft_results_q15, dft_results_q31);
+    // We're done measuring, for now. Disable the DFT interrupts.
+    printf("MainTask: disabling DFT interrupts.\n");
+    if (ADI_AFE_SUCCESS !=
+        adi_AFE_EnableInterruptSource(
+            hDevice, ADI_AFE_INT_GROUP_CAPTURE,
+            BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN, false)) {
+      FAIL("adi_AFE_EnableInterruptSource (false)");
+    }
+    
+    // Tell the pump task to deflate the cuff.
+    printf("MainTask: resuming pump task to deflate the cuff.\n");
+    err = OSTaskResume(TASK_PUMP_PRIO);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSTaskResume: MainTask (2)");
+    }
 
-    // Magnitude calculation
-    // Use CMSIS function
-    arm_cmplx_mag_q31(dft_results_q31, magnitude, DFT_RESULTS_COUNT / 2);
+    // Suspend until the pump finishes deflating. We can then go back to
+    // listening for the user input.
+    printf("MainTask: suspending to wait for pump task.\n");
+    err = OSTaskSuspend(OS_PRIO_SELF);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSTaskSuspend: MainTask (3)");
+    }
 
-    // Calculate final magnitude values, calibrated with RCAL.
-    fixed32_t magnituderesult;
-    magnituderesult = calculate_magnitude(magnitudecal, magnitude[0]);
-
-    q15_t phaseresult;
-    phaseresult = arctan(dft_results[1], dft_results[0]);
-    fixed32_t phasecalibrated;
-
-    // calibrate with phase from rcal
-    phasecalibrated = calculate_phase(phasecal, phaseresult);
-    // printf("final results (magnitude, phase) : (%6d, %6d)\r\n",
-    // magnitude_result[0], phasecalibrated );
-    print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
-                                 q_size);
-    nummeasurements++;
+    // Tell the UX that we're done for now.
+    UX_Disengage();
   }
 }
 
@@ -560,8 +618,8 @@ void print_PressureMagnitudePhase(char *text, uint16_t pressure,
                                   int queue_size) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
-  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude, phase,
-          queue_size, DFT_QUEUE_SIZE);
+  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude.full,
+          phase.full, queue_size, DFT_QUEUE_SIZE);
 
   PRINT(msg);
 }
@@ -716,43 +774,6 @@ void rtc_Init(void) {
   /* enable RTC */
   if (ADI_RTC_SUCCESS != adi_RTC_EnableDevice(hRTC, true))
     FAIL("adi_RTC_EnableDevice failed");
-
-  /* program GPIO to capture P0.10 pushbutton interrupt... */
-
-  /* initialize GPIO driver */
-  if (adi_GPIO_Init()) {
-    FAIL("adi_GPIO_Init failed");
-  }
-
-  /* enable P0.10 input */
-  if (adi_GPIO_SetInputEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, true)) {
-    FAIL("Initialise_GPIO: adi_GPIO_SetInputEnable failed");
-  }
-
-  /* disable P0.10 output */
-  if (adi_GPIO_SetOutputEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, false)) {
-    FAIL("Initialise_GPIO: adi_GPIO_SetOutputEnable failed");
-  }
-
-  /* set P0.10 pullep enable */
-  if (adi_GPIO_SetPullUpEnable(ADI_GPIO_PORT_0, ADI_GPIO_PIN_10, true)) {
-    FAIL("Initialise_GPIO: adi_GPIO_SetOutputEnable failed");
-  }
-
-  /* Register the external interrupt callback */
-  if (adi_GPIO_RegisterCallback(EINT8_IRQn, Ext_Int8_Callback, NULL)) {
-    FAIL("Initialise_GPIO: adi_GPIO_RegisterCallbackExtInt failed");
-  }
-
-  /* enable P0.10 as external interrupt */
-  if (adi_GPIO_EnableIRQ(EINT8_IRQn, ADI_GPIO_IRQ_EITHER_EDGE)) {
-    FAIL("Initialise_GPIO: adi_GPIO_EnableIRQ failed");
-  }
-
-  /* release GPIO driver */
-  if (adi_GPIO_UnInit()) {
-    FAIL("adi_GPIO_Init failed");
-  }
 }
 
 void rtc_Calibrate(void) {
@@ -948,13 +969,4 @@ static void wutCallback(void *hWut, uint32_t Event, void *pArg) {
   bHibernateExitFlag = true;
   bWdtInterrupt = true;
   FAIL("RTC test failed: Got failsafe WUT interrupt");
-}
-
-/* External interrupt callback */
-static void Ext_Int8_Callback(void *pCBParam, uint32_t Event, void *pArg) {
-  /* clear the interrupt */
-  NVIC_ClearPendingIRQ(EINT8_IRQn);
-
-  /* also call hibernation exit API */
-  SystemExitLowPowerMode(&bHibernateExitFlag);
 }

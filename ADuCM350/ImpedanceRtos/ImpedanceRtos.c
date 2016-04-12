@@ -5,6 +5,7 @@ OS_STK g_TaskPumpStack[TASK_PUMP_STK_SIZE];
 OS_STK g_TaskUxStack[TASK_UX_STK_SIZE];
 
 OS_EVENT *i2c_mutex;
+OS_EVENT *ux_button_semaphore;
 
 int main(void) {
   INT8U OSRetVal;
@@ -23,21 +24,27 @@ int main(void) {
 
   OSInit();
 
-  // Create a semaphore indicating that I2C is initialized.
+  // Create a mutex indicating that I2C is initialized.
   i2c_mutex = OSMutexCreate(1, &OSRetVal);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the I2C mutex\n");
   }
+  
+  // Create a semaphore indicating that the button was pressed.
+  ux_button_semaphore = OSSemCreate(0);
+  if (ux_button_semaphore == (void *) 0) {
+    FAIL("Error creating the button semaphore\n");
+  }
 
   // Create the main thread.
-  OSRetVal = OSTaskCreate(MainThreadRun, NULL,
+  OSRetVal = OSTaskCreate(MainTaskRun, NULL,
                           (OS_STK*)&g_TaskMainStack[TASK_MAIN_STK_SIZE - 1],
                           TASK_MAIN_PRIO);
   if (OSRetVal != OS_ERR_NONE) {
     FAIL("Error creating the main thread.\n");
   }
-  
-  // Create the thread in charge of updating the pump.
+
+  // Create the thread in charge of interfacing with the pump.
   OSRetVal = OSTaskCreate(PumpThreadRun, NULL,
                           (OS_STK*)&g_TaskPumpStack[TASK_PUMP_STK_SIZE - 1],
                           TASK_PUMP_PRIO);
