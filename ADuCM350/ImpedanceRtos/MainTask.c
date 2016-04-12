@@ -109,7 +109,6 @@ void test_print(char *pBuffer);
 ADI_UART_RESULT_TYPE uart_Init(void);
 ADI_UART_RESULT_TYPE uart_UnInit(void);
 void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice);
-//void i2c_Init(ADI_I2C_DEV_HANDLE *i2cDevice);
 
 /* Sequence for AC measurement, performs 4 DFTs:        */
 /*     RCAL, AFE3-AFE4, AFE4-AFE5, AFE3-AFE5            */
@@ -153,7 +152,7 @@ void *dft_queue_msg[DFT_QUEUE_SIZE];
 
 uint8_t i2c_rx[I2C_BUFFER_SIZE];
 
-void MainTaskRun(void *arg) {
+void MainTask(void *arg) {
   ADI_AFE_DEV_HANDLE hDevice;
   int16_t dft_results[DFT_RESULTS_COUNT];
   q15_t dft_results_q15[DFT_RESULTS_COUNT];
@@ -286,6 +285,7 @@ void MainTaskRun(void *arg) {
       FAIL("OSSemPend: MainTask");
     }
     
+    // TODO: fix bug when pressing button multiple times.
     // Have the pump task inflate the cuff.
     printf("MainTask: button detected. Resuming pump task.\n");
     err = OSTaskResume(TASK_PUMP_PRIO);
@@ -300,6 +300,13 @@ void MainTaskRun(void *arg) {
       FAIL("OSTaskResume: MainTask (1)");
     }
     
+    // Wait a bit.
+    printf("MainTask: waiting a bit.\n");
+    err = OSTimeDlyHMSM(0, 0, 1, 0);
+    if (err != OS_ERR_NONE) {
+      FAIL("OSTimeDlyHMSM: MainTask (3)");
+    }
+    
     // Enable the DFT interrupt.
     printf("MainTask: enabling DFT interrupt.\n");
     if (ADI_AFE_SUCCESS !=
@@ -309,10 +316,9 @@ void MainTaskRun(void *arg) {
       FAIL("adi_AFE_EnableInterruptSource");
     }
 
-    packed32_t pend_dft_results;
     while (true) {
       // Wait on the queue to get DFT data from the ISR (~76 Hz).
-      printf("MainTask: pending on DFT queue.\n");
+      //printf("MainTask: pending on DFT queue.\n");
       q_result_void = OSQPend(dft_queue, 0, &err);
       q_result = *((packed32_t *)&q_result_void);
       if (err != OS_ERR_NONE) {
@@ -323,7 +329,7 @@ void MainTaskRun(void *arg) {
     
       // Right after we get this data, get the transducer's value from the
       // Arduino.
-      printf("MainTask: getting transducer value via I2C.\n");
+      //printf("MainTask: getting transducer value via I2C.\n");
       i2cResult = adi_I2C_MasterReceive(i2cDevice, I2C_PUMP_SLAVE_ADDRESS, 0x0,
                                         ADI_I2C_8_BIT_DATA_ADDRESS_WIDTH,
                                         i2c_rx, 3, false);
@@ -340,7 +346,7 @@ void MainTaskRun(void *arg) {
       
       // Convert the analog value to mmHg.
       pressure = transducer_to_mmhg(pressure_analog);
-      printf("MainTask: got pressure value: %d mmHg.\n", pressure);
+      //printf("MainTask: got pressure value: %d mmHg.\n", pressure);
       
       // If the pressure is below the threshold, we're done; break the loop.
       if (pressure < LOWEST_PRESSURE_THRESHOLD_MMHG) {
@@ -366,7 +372,7 @@ void MainTaskRun(void *arg) {
       phasecalibrated = calculate_phase(phasecal, phaseresult);
       
       // TODO: dispatch to another thread?
-      printf("MainTask: sending data via UART.\n");;
+      //printf("MainTask: sending data via UART.\n");;
       print_PressureMagnitudePhase("", pressure, magnituderesult, phasecalibrated,
                                    q_size);
       nummeasurements++;
@@ -618,8 +624,9 @@ void print_PressureMagnitudePhase(char *text, uint16_t pressure,
                                   int queue_size) {
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
-  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude.full,
-          phase.full, queue_size, DFT_QUEUE_SIZE);
+//  sprintf(msg, "%d: %d\r\n", pressure, queue_size);
+  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude,
+          phase, queue_size, DFT_QUEUE_SIZE);
 
   PRINT(msg);
 }

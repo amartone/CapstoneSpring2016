@@ -31,7 +31,6 @@ void receivePressure(int numBytes) {
     // The ADUCM350 I2C implementation sends an address before a request;
     // ignore these bytes.
     Wire.read();
-    Wire.read();
     return;
   }
 

@@ -23,7 +23,7 @@ uint16_t targetValue;
 ADI_I2C_RESULT_TYPE i2cResult;
 
 void SetTargetPressure(int32_t targetPressure) {
-  targetValue = mmhg_to_transducer(targetPressure);
+  targetValue = targetPressure ? mmhg_to_transducer(targetPressure) : 0;
   i2c_pump_tx[0] = SET_PRESSURE_COMMAND;
   i2c_pump_tx[1] = targetValue & 0xFFu;
   i2c_pump_tx[2] = (targetValue >> 8) & 0x3u;
