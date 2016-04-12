@@ -4,7 +4,7 @@
   <group active="true" name="Micrium">
     <variable>
       <name>_MICRIUM_DIR_</name>
-      <value>G:\Development\NU\NU-Capstone\ADuCM350\uCOS-II-ADuCM350\Micrium</value>
+      <value>$PROJ_DIR$\..\..\uCOS-II-ADuCM350\Micrium</value>
     </variable>
   </group>
 </iarUserArgVars>
