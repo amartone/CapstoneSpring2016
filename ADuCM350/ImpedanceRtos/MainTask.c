@@ -53,7 +53,7 @@ typedef union {
 
 // Type used for passing impedance results through the message queue.
 typedef union {
-  int32_t full;
+  void *pointer;
   struct {
     int16_t magnitude : 16;
     int16_t phase : 16;
@@ -277,6 +277,7 @@ void MainTask(void *arg) {
   void *q_result_void;
   OS_Q_DATA q_data;
   uint16_t q_size;
+  bool inflated = false;
   while (true) {
     // Wait for the user to press the button.
     printf("MainTask: waiting for button.\n");
@@ -289,13 +290,6 @@ void MainTask(void *arg) {
     // Have the pump task inflate the cuff.
     printf("MainTask: button detected. Resuming pump task.\n");
     err = OSTaskResume(TASK_PUMP_PRIO);
-    if (err != OS_ERR_NONE) {
-      FAIL("OSTaskResume: MainTask (1)");
-    }
-    
-    // Suspend this task until the pump task finishes inflating.
-    printf("MainTask: suspending self.\n");
-    err = OSTaskSuspend(OS_PRIO_SELF);
     if (err != OS_ERR_NONE) {
       FAIL("OSTaskResume: MainTask (1)");
     }
@@ -315,12 +309,14 @@ void MainTask(void *arg) {
             BITM_AFE_AFE_ANALOG_CAPTURE_IEN_DFT_RESULT_READY_IEN, true)) {
       FAIL("adi_AFE_EnableInterruptSource");
     }
+    
+    PRINT("START\r\n");
 
     while (true) {
       // Wait on the queue to get DFT data from the ISR (~76 Hz).
       //printf("MainTask: pending on DFT queue.\n");
       q_result_void = OSQPend(dft_queue, 0, &err);
-      q_result = *((packed32_t *)&q_result_void);
+      q_result.pointer = q_result_void;
       if (err != OS_ERR_NONE) {
         FAIL("OSQPend: dft_queue");
       }
@@ -338,7 +334,8 @@ void MainTask(void *arg) {
       }
 
       // Get the analog pressure value from the Arduino.
-      if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE) {
+      if (i2c_rx[0] == ARDUINO_PRESSURE_AVAILABLE
+          || i2c_rx[0] == ARDUINO_STILL_INFLATING) {
         pressure_analog = i2c_rx[1] | (i2c_rx[2] << 8);
       } else {
         FAIL("Corrupted or unexpected data from Arduino.");
@@ -349,8 +346,11 @@ void MainTask(void *arg) {
       //printf("MainTask: got pressure value: %d mmHg.\n", pressure);
       
       // If the pressure is below the threshold, we're done; break the loop.
-      if (pressure < LOWEST_PRESSURE_THRESHOLD_MMHG) {
+      if (inflated && pressure < LOWEST_PRESSURE_THRESHOLD_MMHG) {
+        PRINT("END\r\n");
         break;
+      } else if (pressure > LOWEST_PRESSURE_THRESHOLD_MMHG * 1.1) {
+        inflated = true;
       }
 
       // Convert DFT results to 1.15 and 1.31 formats.
@@ -378,6 +378,7 @@ void MainTask(void *arg) {
       nummeasurements++;
     }
 
+    
     // We're done measuring, for now. Disable the DFT interrupts.
     printf("MainTask: disabling DFT interrupts.\n");
     if (ADI_AFE_SUCCESS !=
@@ -411,10 +412,15 @@ packed32_t pend_dft_results;
 
 static void AFE_DFT_Callback(void *pCBParam, uint32_t Event, void *pArg) {
   OSIntEnter();
+  
+  if (pADI_AFE->AFE_DFT_RESULT_REAL != pADI_AFE->AFE_DFT_RESULT_REAL & 0xFF  
+    || pADI_AFE->AFE_DFT_RESULT_IMAG != pADI_AFE->AFE_DFT_RESULT_IMAG & 0xFF) {
+    FAIL("lost data");
+  }
 
   pend_dft_results.parts.magnitude = pADI_AFE->AFE_DFT_RESULT_REAL;
   pend_dft_results.parts.phase = pADI_AFE->AFE_DFT_RESULT_IMAG;
-  if (OS_ERR_NONE != OSQPost(dft_queue, *((void **)&pend_dft_results))) {
+  if (OS_ERR_NONE != OSQPost(dft_queue, pend_dft_results.pointer)) {
     FAIL("AFE_DFT_Callback: OSQPost");
   }
 
@@ -625,8 +631,23 @@ void print_PressureMagnitudePhase(char *text, uint16_t pressure,
   char msg[MSG_MAXLEN];
   char tmp[MSG_MAXLEN];
 //  sprintf(msg, "%d: %d\r\n", pressure, queue_size);
-  sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude,
-          phase, queue_size, DFT_QUEUE_SIZE);
+  
+  sprintf(msg, "%d", pressure);
+  
+  sprintf_fixed32(tmp, magnitude);
+  strcat(msg, tmp);
+  
+  sprintf_fixed32(tmp, phase);
+  strcat(msg, tmp);
+  
+  //sprintf(tmp, "(%d,%d)\r\n",  queue_size, DFT_QUEUE_SIZE);
+  //strcat(msg, tmp);
+  strcat(msg, "\r\n");
+  
+  
+  
+  //sprintf(msg, "%s %d: %d %d (%d/%d)\r\n", text, pressure, magnitude,
+  //        phase, queue_size, DFT_QUEUE_SIZE);
 
   PRINT(msg);
 }
