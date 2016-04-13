@@ -13,6 +13,7 @@
 // Used for I2C or SPI
 //#define OLED_RESET 5
 
+const int kSolenoidValvePin = 7;
 const int kTransducer = A3;
 
 const int kI2cSlaveAddress = 0x77;
@@ -62,6 +63,8 @@ void setup() {
   Wire.onRequest(OnRequest);
   Wire.onReceive(OnReceive);
   Serial.println("Registered I2C connection...");
+  pinMode(kSolenoidValvePin, OUTPUT);
+  digitalWrite(kSolenoidValvePin, HIGH);
 }
 
 void loop() {
