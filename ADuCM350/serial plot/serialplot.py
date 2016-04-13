@@ -61,7 +61,7 @@ class AnalogPlot:
 
 # main() function
 def main():
-  numvalues = 15000
+  numvalues = 500
 
 
   # create parser
@@ -107,6 +107,14 @@ def main():
   
   x = np.arange(0, numvalues, 1)
   
+  pres.pop(0)
+  mag.pop(0)
+  pres.pop(0)
+  mag.pop(0)
+  pres.pop(0)
+  mag.pop(0)
+  pres.pop(0)
+  mag.pop(0)
   
   plt.subplot(2, 1, 1)
   plt.plot(mag)
