@@ -88,9 +88,13 @@
             'controlType': 'ChartRangeFilter',
             'containerId': 'filter_div',
             'options': {
-              'filterColumnLabel': 'Samples'
+              'filterColumnLabel': 'Samples',
+                'ui': {
+
+                    'chartOptions':{'height':'50'}
+                }
             }
-          });
+        });
 
           // Create a line chart, passing some options
           var impedanceChart = new google.visualization.ChartWrapper({
