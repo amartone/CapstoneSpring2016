@@ -1,8 +1,6 @@
 #include "ImpedanceRtos.h"
 
-#define HIGH_PRESSURE 159
-#define CUFF_DEFLATE_DELAY_S 2
-#define CUFF_NORMALIZE_AFTER_INFLATE_DELAY_S 3
+
 
 uint16_t mmhg_to_transducer(uint32_t pressure) {
   // Cortex M3 has no hardware FP (?), so use an approximation instead.

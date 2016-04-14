@@ -102,6 +102,11 @@ extern volatile bool ux_is_engaged;
 // The pressure at which we stop collecting data and fully deflate the cuff.
 #define LOWEST_PRESSURE_THRESHOLD_MMHG 40
 
+
+#define HIGH_PRESSURE 180
+#define CUFF_DEFLATE_DELAY_S 2
+#define CUFF_NORMALIZE_AFTER_INFLATE_DELAY_S 3
+
 extern void PumpTask(void *arg);
 
 extern uint16_t mmhg_to_transducer(uint32_t pressure);
