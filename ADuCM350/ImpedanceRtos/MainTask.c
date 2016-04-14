@@ -311,6 +311,7 @@ void MainTask(void *arg) {
     }
     
     PRINT("START\r\n");
+    printf("START\r\n");
 
     while (true) {
       // Wait on the queue to get DFT data from the ISR (~76 Hz).
@@ -348,6 +349,8 @@ void MainTask(void *arg) {
       // If the pressure is below the threshold, we're done; break the loop.
       if (inflated && pressure < LOWEST_PRESSURE_THRESHOLD_MMHG) {
         PRINT("END\r\n");
+        printf("END\r\n");
+        inflated = false;
         break;
       } else if (pressure > LOWEST_PRESSURE_THRESHOLD_MMHG * 1.1) {
         inflated = true;
