@@ -88,22 +88,31 @@
             'controlType': 'ChartRangeFilter',
             'containerId': 'filter_div',
             'options': {
-              'filterColumnLabel': 'Samples'
-            }
-          });
+              'filterColumnLabel': 'Samples',
+                'ui': {
 
-          // Create a pie chart, passing some options
+                    'chartOptions':{'height':'50'}
+                }
+            }
+        });
+
+          // Create a line chart, passing some options
           var impedanceChart = new google.visualization.ChartWrapper({
             'chartType': 'LineChart',
             'containerId': 'chart_div',
             'options': {
-          'hAxis': {
-            'title': 'Samples'
-          },
-          'vAxis': {
-            'title': 'Impedance'
-          }
-        }
+                'hAxis': {
+                    'title': 'Samples'
+                },
+                'vAxis': {
+                    'title': 'Impedance'
+                },
+                'crosshair': {
+                    'trigger': 'both', 'orientation': 'vertical'
+                }, // Display crosshairs on focus and selection.
+                'selectionMode': 'multiple'
+            }
+
           });
 
           // Establish dependencies, declaring that 'filter' drives 'pieChart',

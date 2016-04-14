@@ -1,10 +1,8 @@
-
-
 <div class="content" ng-controller="HomeController">
     <div class="container-fluid">
         <div class="row">
-    <div class="col-sm-6">
-            <h3>Summary
+    <div class="col-sm-6" style="padding-right:20px;">
+            <h3><i class="fa fa-medkit"></i> Summary
         <span class="btn-group">
                 <button class="btn btn-default" type="button">Get new BP</button>
                </span>
@@ -28,7 +26,7 @@
             </table>
 
         </div>
-
+        <h3><i class="ti-pulse"></i> Latest Measurement Graph</h3>
         <div id="dashboard_div">
           <!--Divs that will hold each control and chart-->
           <div id="chart_div"></div>
@@ -36,11 +34,53 @@
         </div>
         </div>
 
-    <div class="col-sm-6">
-        <h3> Reminders
+    <div class="col-sm-6" style="padding-left:20px;">
+        <h3> <i class="fa fa-calendar-check-o"></i> Reminders
             <button class="btn btn-default" type="button">Create new reminder</button>
-
         </h3>
+
+
+        <div class="content table-responsive table-full-width">
+            <table class="table table-striped">
+                <thead>
+                <th>Name</th>
+                <th>Due</th>
+                <th>Comment</th>
+                <th>Assigned</th>
+                <th>Action</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href=""> Check your blood pressure tomorrow</a></td>
+                    <td>April 12, 2016</td>
+                    <td>After you have 3 meals tomorrow, please check your BP.</td>
+                    <td>Primary Care Physcian</td>
+                    <td style="display: flex;"><btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-check"></i></btn>
+                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href=""> Send results over to PCP</a></td>
+                    <td>April 18, 2016</td>
+                    <td>Use the internal tools to send the data.</td>
+                    <td>Andrew Martone</td>
+                    <td style="display: flex;"><btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-check"></i></btn>
+                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href=""> Check BP after workout this weekend</a></td>
+                    <td>April 16, 2016/td>
+                    <td>Measure BP before and after workout.</td>
+                    <td>Andrew Martone</a></td>
+                    <td style="display: flex;"><btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-check"></i></btn>
+                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
 
     </div>
 
